@@ -62,7 +62,7 @@
         <p class="mb-1 mt-3 font-weight-semibold">{{ auth()->user()->name }}</p>
       </div>
       <a href="{{url('/')}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-home text-primary me-2"></i>Beranda</a>
-      <a href="{{route('admin-profile',auth()->user()->id)}}" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>Profil Saya</a>
+      <a href="" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>Profil Saya</a>
       <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>
         <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
           @csrf

@@ -3,7 +3,7 @@
 @section('title', 'Masuk')
 
 @section('content')
-<section >
+<section>
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
@@ -13,7 +13,7 @@
         <form>
           <div class="d-flex flex-column justify-content-center justify-content-lg-start">
             <h4>Selamat Datang Kembali</h4>
-            <h6 class="fw-light">Silahkan masuk terlebih dahulu</h6>
+            <h6 class="fw-light mt-2 mb-4">Silahkan masuk terlebih dahulu</h6>
 
             @if (request()->session()->has('status'))
             <div class="alert alert-danger mt-4">
@@ -24,14 +24,14 @@
 
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter a valid email address" />
-            <label class="form-label" for="form3Example3">Email address</label>
+            <label class="form-label" for="form3Example3">Email </label>
+            <input type="email" id="form3Example3" class="form-control" placeholder="Email" required />
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg" placeholder="Enter password" />
             <label class="form-label" for="form3Example4">Password</label>
+            <input type="password" id="form3Example4" class="form-control" placeholder="Password" required />
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
@@ -46,8 +46,8 @@
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!" class="link-danger">Register</a></p>
+            <button type="button" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{{route('register')}}" class="link-danger">Register</a></p>
           </div>
 
         </form>

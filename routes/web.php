@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('pages.main.index');
+});
+
+Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], function () {
+    Route::get('/', [DashboardController::class, 'index']);
 });
