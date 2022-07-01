@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Creator: CorelDRAW 2021 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="500px" height="500px" version="1.0" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 69.06 69.06"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:none}
+    .fil1 {fill:#DEE4FF}
+    .fil6 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil5 {fill:#337BA6;fill-rule:nonzero}
+    .fil4 {fill:#075445;fill-rule:nonzero}
+    .fil3 {fill:#0C6351;fill-rule:nonzero}
+    .fil7 {fill:#333333;fill-rule:nonzero}
+    .fil2 {fill:#D6DA5C;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2290010080480">
+   <rect class="fil0" width="69.06" height="69.06"/>
+   <path class="fil1" d="M6.5 35.38c-1.14,5.06 -4.24,9.04 -3.04,14.01 1.2,4.96 6.69,10.93 14.41,11.28 7.71,0.35 17.65,-4.91 25.6,-7.16 7.95,-2.25 13.91,-1.49 17.92,-5.15 4,-3.65 6.05,-11.72 3.07,-18.94 -2.98,-7.22 -10.99,-13.59 -18.85,-17.24 -7.87,-3.66 -15.58,-4.59 -22.16,-3.16 -6.58,1.43 -12.01,5.23 -14.32,10.2 -2.31,4.97 -1.49,11.11 -2.63,16.16z"/>
+   <polygon class="fil2" points="12.64,27.68 34.53,10.56 56.42,27.68 "/>
+   <polygon class="fil2" points="12.64,58.51 56.42,58.51 56.42,27.68 12.64,27.68 "/>
+   <polygon class="fil3" points="12.64,58.51 34.53,43.09 12.64,27.68 "/>
+   <polygon class="fil3" points="56.42,58.51 34.53,43.09 56.42,27.68 "/>
+   <polygon class="fil3" points="34.53,43.09 29.19,39.33 12.64,58.51 56.42,58.51 39.88,39.33 "/>
+   <polygon class="fil4" points="34.53,43.09 34.53,43.09 29.19,39.33 12.64,27.68 34.53,39.06 56.42,27.68 "/>
+   <polygon class="fil5" points="34.53,43.09 29.19,39.33 29.19,39.33 "/>
+   <polygon class="fil6" points="51.66,17.64 51.66,31.33 34.53,43.09 34.53,43.08 34.53,43.09 17.41,31.33 17.41,17.64 "/>
+   <path class="fil7" d="M47.47 24.09c0,0.31 -0.26,0.57 -0.58,0.57l-24.72 0c-0.31,0 -0.57,-0.26 -0.57,-0.57 0,-0.32 0.26,-0.58 0.57,-0.58l24.72 0c0.32,0 0.58,0.26 0.58,0.58z"/>
+   <path class="fil7" d="M47.47 27.68c0,0.31 -0.26,0.57 -0.58,0.57l-24.72 0c-0.31,0 -0.57,-0.26 -0.57,-0.57 0,-0.32 0.26,-0.57 0.57,-0.57l24.72 0c0.32,0 0.58,0.25 0.58,0.57z"/>
+   <path class="fil7" d="M47.47 31.27c0,0.31 -0.26,0.57 -0.58,0.57l-24.72 0c-0.31,0 -0.57,-0.26 -0.57,-0.57 0,-0.32 0.26,-0.57 0.57,-0.57l24.72 0c0.32,0 0.58,0.25 0.58,0.57z"/>
+  </g>
+ </g>
+</svg>
