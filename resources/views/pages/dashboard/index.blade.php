@@ -83,11 +83,6 @@
 @section('js')
 <script>
   $(document).ready(function() {
-    // DASHBOARD 
-    getOrderStatCount('BELUM_DIBAYAR', 'DASH_BELUM_DIBAYAR');
-    getOrderStatCount('DIKEMAS', 'DASH_DIKEMAS');
-    getOrderStatCount('DIKIRIM', 'DASH_DIKIRIM');
-    getOrderStatCount('SELESAI', 'DASH_SELESAI');
   });
 </script>
 @endsection

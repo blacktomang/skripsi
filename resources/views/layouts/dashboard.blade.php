@@ -10,7 +10,7 @@
   <!-- plugins:css -->
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="{{ asset('fontawesome-5.7.2/css/all.min.css') }}">
   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
   <link rel="stylesheet" href="{{asset('css/animate.css')}}" />
   <link rel="stylesheet" href="{{asset('css/mdi/css/materialdesignicons.min.css')}}">
@@ -137,8 +137,9 @@
 
   <script src="{{asset('js/dashboard.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js" integrity="sha256-jLFv9iIrIbqKULHpqp/jmePDqi989pKXOcOht3zgRcw=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{asset('js/Chart.roundedBarCharts.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     const BASE_URL = `{{ url('/') }}`
     const URL_NOW = `{{ request()->url() }}`
@@ -147,9 +148,13 @@
     // Set up csrf token
     $.ajaxSetup({
       headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        'X-CSRF-TOKEN': CSRF_TOKEN
       }
     });
+
+    $(window).ready(() => {
+      axios(URL_NOW);
+    })
 
     const refresh_table = url => {
       new Promise((resolve, reject) => {
@@ -210,170 +215,32 @@
     };
   </script>
 
-  {{-- Updating penjualan's badge on sidebar menu --}}
   <script>
-    $(document).ready(function() {
-      refreshSideBadge()
-      checkStock()
-      getAllNotif()
-    });
-
-    // SIDE BADGE INDICATOR
-    function getOrderStatCount(status_order, tag_id) {
-      $.ajax({
-        type: "get",
-        url: "{{url('dashboard/order/getOrderStatCount')}}",
-        data: "status_order=" + status_order,
-        success: function(amountOfOrder) {
-          $('#' + tag_id).text(amountOfOrder)
+    const jsPriceFormat = (param) => {
+      n = 3;
+      string = String(param);
+      var ret = [];
+      let hiah = 1;
+      for (let i = string.length - 1; i >= 0; i--) {
+        if (i != 0 && hiah % 3 == 0) {
+          ret.push(`.${string[i]}`)
+        } else {
+          ret.push(`${string[i]}`)
         }
-      });
-    }
-
-    function refreshSideBadge() {
-      //  SIDE BAR
-      getOrderStatCount('DIKEMAS', 'DIKEMAS');
-      getOrderStatCount('DIKIRIM', 'DIKIRIM');
-      getOrderStatCount('SELESAI', 'SELESAI');
-    }
-
-    // NOTIFICATION
-    function checkStock() {
-      let runOutStockPromise = Promise.resolve(
-        $.ajax({
-          type: "get",
-          url: "",
-          success: function(data) {
-            $('#notifikasi-container').append(data)
-
-            $count_notif = $('#product-run-of-stock').text()
-            if ($count_notif >= 1) {
-              $('#notif-indicator').show()
-              // console.log($count_notif + 'ini jumlah notifikasi produck')
-
-            }
-          }
-        })
-      )
-    }
-
-    function getAllNotif() {
-      $.ajax({
-        type: "get",
-        url: "",
-        success: function(data) {
-          console.log(data)
-
-          let count = 0
-          data.forEach(item => {
-
-            let href_val = '#'
-            let icon_src = ''
-            if (item.type == 'new_order') {
-              href_val = "" + '?keyword=' + 'BELUM_BAYAR'
-              icon_src = 'https://clipground.com/images/purchase-order-icon-clipart-8.jpg'
-            }
-
-            let notifikasi = $("<a>", {
-              id: 'notif-' + item.id,
-              onclick: "markAsRead(" + item.id + ")",
-              class: "dropdown-item preview-item",
-              href: href_val
-            }).append(
-              $("<div>", {
-                class: "preview-thumbnail"
-              }).append(
-                $('<img>', {
-                  src: icon_src,
-                  alt: 'icon',
-                  class: 'img-sm profile-pic'
-                })
-              ),
-              $("<div>", {
-                class: "preview-item-content flex-grow py-2"
-              }).append(
-                $('<p>', {
-                  class: 'preview-subject ellipsis font-weight-medium text-dark',
-                  text: item.title
-                }),
-                $('<p>', {
-                  class: 'fw-light small-text mb-0',
-                  text: item.desc
-                }),
-              ),
-            )
-
-            $('#notifikasi-container').append(notifikasi)
-            count += 1
-          })
-
-          // enable indicator
-          if (count >= 1) {
-            $('#notif-indicator').show()
-          }
-        }
-      })
-    }
-
-    function markAsRead(notif_id) {
-      $.ajax({
-        type: "get",
-        url: "",
-        data: 'notif_id=' + notif_id,
-        success: function(data) {
-          console.log(data)
-
-        }
-      })
-    }
-
-    function markAllAsRead() {
-      $.ajax({
-        type: "get",
-        url: "",
-        success: function(data) {
-          console.log(data)
-          $('#notifikasi-container').empty()
-          $('#notif-indicator').hide()
-        }
-      })
-    }
-
-    /**
-     * Refresh Table Client Side.
-     * @param {string} url 
-     * @param {string} table
-     */
-
-    const throwErr = (status, data) => {
-      console.warn(data);
-      if (status == 422) {
-        let message = data.errors
-        let teks_error = ''
-        $.each(message, (i, e) => {
-          if (e.length > 1) {
-            $.each(e, (id, el) => {
-              teks_error += `<p>${el}</p>`
-            })
-          } else {
-            teks_error += `<p>${e}</>`
-          }
-        })
-        $swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          html: teks_error,
-        })
-      } else {
-        let message = data.message
-        $swal.fire({
-          icon: 'error',
-          title: 'Oops..',
-          text: data.message,
-        })
+        hiah++;
       }
-    }
+      return ret.reverse().join("");
+    };
 
+    $(".inputPrice").on('input', function() {
+      let numberPrice = Number($(this).val().replace(/[^0-9]/g, ''));
+      $(this).val(`Rp ${jsPriceFormat(numberPrice)}`);
+    });
+    /**
+     * Refresh Table Client Side. 
+     * * @param {   string } url 
+     * * @param {   string } table 
+     * */
     async function refreshTable(url, table) {
       $.ajax({
         url: url,

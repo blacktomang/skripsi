@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,6 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], function () {
     Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('products', ProductController::class);
+    Route::delete('/product-image/{id}', [ProductController::class, 'delete_image'])->name('product-image.delete');
 });

@@ -7,20 +7,10 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
-        <i class="menu-icon mdi mdi-briefcase"></i>
+      <a class="nav-link" href="{{route('products.index')}}">
+        <i class="menu-icon mdi mdi mdi-star"></i>
         <span class="menu-title">Produk</span>
-        <i class="menu-arrow"></i>
       </a>
-      <div class="collapse" id="product">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="{{url('dashboard/product')}}">Produk</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{url('dashboard/stock')}}">Stock</a></li>
-          <li class="nav-item"> <a class="nav-link" href="{{url('dashboard/category')}}">Kategori</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Variant</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Size</a></li>
-        </ul>
-      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sale" aria-expanded="false" aria-controls="sale">
@@ -31,12 +21,12 @@
       <div class="collapse" id="sale">
         <ul class="nav flex-column sub-menu">
           <!-- badge berfungsi seperti notifikasi -->
-          <li class="nav-item"> <a class="nav-link" href=""</a></li>
-          <li class="nav-item"> <a class="nav-link" href=""EMAS">Dikemas <span id="DIKEMAS" class="badge badge-danger" style="color: white">10</span></a></li>
+          <li class="nav-item"> <a class="nav-link" href="" ></a></li>
+          <li class="nav-item"> <a class="nav-link" href="" EMAS">Dikemas <span id="DIKEMAS" class="badge badge-danger" style="color: white">10</span></a></li>
           <li class="nav-item"> <a class="nav-link" href="">Dikirim <span id="DIKIRIM" class="badge badge-primary" style="color: white">2</span></a></li>
           <li class="nav-item"> <a class="nav-link" href="">Selesai <span id="SELESAI" class="badge badge-success" style="color: white">10</span></a></li>
           <li class="nav-item"> <a class="nav-link" href="">Belum Dibayar</a></li>
-          <li class="nav-item"> <a class="nav-link" href=""ATALKAN">Dibatalkan</a></li>
+          <li class="nav-item"> <a class="nav-link" href="" ATALKAN">Dibatalkan</a></li>
         </ul>
       </div>
     </li>
@@ -50,11 +40,9 @@
       <div class="collapse" id="user">
         <ul class="nav flex-column sub-menu">
           <!-- Role Superadmin -->
-          <li class="nav-item"> <a class="nav-link" href="">Tampilkan Semua</a></li>
-          <li class="nav-item"> <a class="nav-link" href="">Superadmin</a></li>
           <li class="nav-item"> <a class="nav-link" href="">Admin</a></li>
           <!-- End Role -->
-          <li class="nav-item"> <a class="nav-link" href="">Pelanggan</a></li>
+          <li class="nav-item"> <a class="nav-link" href="">User</a></li>
         </ul>
       </div>
     </li>

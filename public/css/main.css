@@ -1592,7 +1592,6 @@ ol {
     -webkit-transition: all .3s ease-out 0s;
     transition: all .3s ease-out 0s;
     position: relative;
-    padding: 38px 0;
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
