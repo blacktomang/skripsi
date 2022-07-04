@@ -3,19 +3,19 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Nama</th>
-      <th scope="col">Harga</th>
+      <th scope="col">email</th>
       <th scope="col">Dibuat oleh</th>
       <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody id="tbody">
-    @forelse ($products as $key => $value)
+    @forelse ($users as $key => $value)
     <tr>
-      <td>{{ ($products->currentpage()-1) * $products->perpage() + $loop->index + 1 }}</th>
+      <td>{{ ($users->currentpage()-1) * $users->perpage() + $loop->index + 1 }}</th>
       <td>{{ $value->name??0 }}</td>
-      <td>Rp .{{number_format($value->price)}}</td>
-      <td>{{$value->creator->name}}</td>
+      <td>{{$value->email}}</td>
+      <td>{{$value->creator?$value->creator->name:'Register'}}</td>
       <td>
         @if ($value->status)
         <span class="filter badge badge-success">Aktif</span>
@@ -41,4 +41,4 @@
   </tbody>
 </table>
 
-{{ $products->links() }}
+{{ $users->links() }}

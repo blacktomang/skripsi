@@ -30176,9 +30176,12 @@ div.tagsinput span.tag a {
     padding-left: 20px;
   }
   .sidebar-icon-only .main-panel {
-    width: calc(100% - 70px);
+    width: calc(100vw - 70px);
   }
 }
+/* .sidebar{
+  posi
+} */
 
 @media (min-width: 992px) {
   .sidebar-hidden .sidebar {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('products', ProductController::class);
-    Route::delete('/product-image/{id}', [ProductController::class, 'delete_image'])->name('product-image.delete');
+    Route::patch('/product-status/{id}', [ProductController::class, 'updateStatus'])->name('product-status.update');
+    Route::delete('/product-image/{id}', [ProductController::class, 'deleteImage'])->name('product-image.delete');
+    Route::resource('users/admin', UserController::class);
+    Route::resource('users/client', UserController::class);
 });

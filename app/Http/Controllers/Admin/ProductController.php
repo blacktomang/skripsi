@@ -23,7 +23,7 @@ class ProductController extends Controller
     {
         $query = Product::query();
         $products = $query->paginate(10);
-        if ($request->ajax()) {
+        if ($request->wantsJson()) {
             return view('pages.dashboard.products.pagination', compact('products'))->render();
         }
         if ($request->keyword) {
@@ -73,7 +73,7 @@ class ProductController extends Controller
                 $images = $request->image;
                 $uploadTraits = new ImageTrait(Product::class, ProductImage::class, $images);
                 // $uploadTraits
-                $countImages = $uploadTraits->count('product_id',$product->id);
+                $countImages = $uploadTraits->count('product_id', $product->id);
                 if ($countImages > 5) {
                     return response()->json([
                         'status' => true,
@@ -84,7 +84,7 @@ class ProductController extends Controller
                     ], 500);
                 }
 
-                $uploadTraits->upload('product_id',$product->id);
+                $uploadTraits->upload('product_id', $product->id);
             }
 
             DB::commit();
@@ -102,7 +102,7 @@ class ProductController extends Controller
                 'status' => false,
                 'message' => [
                     'head' => 'Gagal',
-                    'body' => 
+                    'body' =>
                     json_encode($th)
                     // env('APP_DEBUG') ? $th->getMessage() : "Product gagal dibuat!"
                 ]
@@ -129,7 +129,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('photos')->find($id);
         if (!$product) return response()->json([
             'status' => false,
             'message' => [
@@ -156,7 +156,7 @@ class ProductController extends Controller
             if ($request->image) {
                 $images = $request->image;
                 $uploadTraits = new ImageTrait(Product::class, ProductImage::class, $images);
-                $countImages = $uploadTraits->count('product_id',$product->id);
+                $countImages = $uploadTraits->count('product_id', $product->id);
                 if ($countImages >= 5) {
                     return response()->json([
                         'status' => true,
@@ -166,9 +166,10 @@ class ProductController extends Controller
                         ]
                     ], 500);
                 }
-                $uploadTraits->upload('product_id',$product->id);
+                $uploadTraits->upload('product_id', $product->id);
             }
             $data = $request->except(['id', 'image']);
+            $data['price'] = floor((float)preg_replace('/[Rp. ]/', '', $request->price));
             $product->update($data);
             DB::commit();
             return response()->json([
@@ -184,7 +185,7 @@ class ProductController extends Controller
                 'status' => false,
                 'message' => [
                     'head' => 'Berhasil',
-                    'body' => "Product gagal diupdate!"
+                    'body' => $th->getMessage()
                 ]
             ], 500);
         }
@@ -200,9 +201,12 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $product = Product::with('images')->find($id);
-            $imageTrait = new ImageTrait();
-            $imageTrait->delete($product->images);
+            $product = Product::with('photos')->find($id);
+            if ($product->photos()->count() > 0 ) {
+                $imageTrait = new ImageTrait();
+                $imageTrait->delete($product->photos);
+            }
+            $product->delete();
             DB::commit();
             return response()->json([
                 'status' => false,
@@ -217,13 +221,13 @@ class ProductController extends Controller
                 'status' => true,
                 'message' => [
                     'head' => 'Gagal',
-                    'body' => "Product gagal dihapus!"
+                    'body' => $th->getMessage()
                 ]
             ], 500);
         }
     }
 
-    public function delete_image($id)
+    public function deleteImage($id)
     {
         $image = ProductImage::find($id);
         try {
@@ -244,5 +248,25 @@ class ProductController extends Controller
                 ]
             ], 500);
         }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $product = Product::find($id);
+        if (!$product) return response()->json([
+            'status' => true,
+            'message' => [
+                'head' => 'Gagal',
+                'body' => "Product tidak dapat ditemukan!"
+            ]
+        ], 404);
+        $product->update(['status' => $request->status]);
+        return response()->json([
+            'status' => false,
+            'message' => [
+                'head' => 'Berhasil',
+                'body' => "status berhasil diupdate"
+            ]
+        ], 200);
     }
 }

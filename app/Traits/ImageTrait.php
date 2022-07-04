@@ -55,17 +55,21 @@ class ImageTrait
   public function delete($datas)
   {
     try {
-      if (is_array($datas)) {
+      // dd(isset($datas[0]));
+      if (isset($datas[0])) {
         foreach ($datas as $key => $data) {
-          File::delete($data->value);
+          File::delete(public_path($this->path_image) .'/'. $data->value);
           $data->delete();
         }
       } else {
-        File::delete($datas->value);
+        File::delete(public_path($this->path_image) .'/'. $datas->value);
         $datas->delete();
       }
     } catch (\Throwable $th) {
-      env('APP_DEBUG') ? throw new Error($th->getMessage()) : throw new Error('error');
+      // env('APP_DEBUG') ? 
+      throw new Error($th->getMessage());
+      // : 
+      // throw new Error('error');
     }
   }
 
@@ -74,7 +78,7 @@ class ImageTrait
    * @param int parent_id
    * @return int 
    */
-  public function count($parent_column ,$parent_id): int
+  public function count($parent_column, $parent_id): int
   {
     return $this->child_model::where($parent_column, $parent_id)->count();
   }

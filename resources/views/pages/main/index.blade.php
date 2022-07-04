@@ -161,7 +161,7 @@
     if (stock > 0) {
       window.location.href = link;
     } else {
-      $swal.fire({
+      swal({
         title: 'Stok habis!',
         text: 'Silahkan pilih item lain.',
         icon: 'error'

@@ -169,7 +169,7 @@
           .catch(err => {
             console.log(err)
             $("#table_data").LoadingOverlay('hide')
-            $swal.fire({
+            swal({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!',
@@ -199,14 +199,14 @@
             teks_error += `<p>${e}</>`
           }
         })
-        $swal.fire({
+        swal({
           icon: 'error',
           title: 'Oops...',
           html: teks_error,
         })
       } else {
         let message = err.response.data.message
-        $swal.fire({
+        swal({
           icon: 'error',
           title: message.head,
           text: message.body,

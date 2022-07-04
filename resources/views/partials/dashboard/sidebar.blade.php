@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-fixed sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link" href="{{url('dashboard')}}">
@@ -21,7 +21,7 @@
       <div class="collapse" id="sale">
         <ul class="nav flex-column sub-menu">
           <!-- badge berfungsi seperti notifikasi -->
-          <li class="nav-item"> <a class="nav-link" href="" ></a></li>
+          <li class="nav-item"> <a class="nav-link" href=""></a></li>
           <li class="nav-item"> <a class="nav-link" href="" EMAS">Dikemas <span id="DIKEMAS" class="badge badge-danger" style="color: white">10</span></a></li>
           <li class="nav-item"> <a class="nav-link" href="">Dikirim <span id="DIKIRIM" class="badge badge-primary" style="color: white">2</span></a></li>
           <li class="nav-item"> <a class="nav-link" href="">Selesai <span id="SELESAI" class="badge badge-success" style="color: white">10</span></a></li>
