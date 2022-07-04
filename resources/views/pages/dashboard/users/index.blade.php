@@ -5,7 +5,7 @@
   <div class="card overflow-hidden">
     @include('partials.flash-message-ajax')
     <div class="card-header d-flex align-items-center justify-content-between">
-      <button class="btn btn-success col-lg-3 col-md-6 col-12" id="btnTambah"><i class="fas fa-plus"></i> Tambah Product</button>
+      <button class="btn btn-success col-lg-3 col-md-6 col-12" id="btnTambah"><i class="fas fa-plus"></i> Tambah User</button>
       <div class="col-lg-3 col-md-6 col-12">
         <form action="" method="get" class="row">
           <div class="input-group mb-3">
@@ -29,7 +29,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -46,6 +46,14 @@
             <input type="email" name="email" id="inputEmail" class="form-control inputEmail" required>
           </div>
           <div class="form-group">
+            <label for="phone">No Hp</label>
+            <input type="text" name="phone_number" id="phone" class="form-control phone" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control password" required>
+          </div>
+          <div class="form-group">
             <label for="role">Role</label>
             <select name="role" id="role" class="form-control">
               <option value="0">-- Pilih Role --</option>
@@ -55,7 +63,7 @@
           </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </form>
@@ -109,7 +117,7 @@
           $("#modalTitle").html('Update User');
           $("input[name='name']").val(user.name)
           $("input[name='email']").val(user.email)
-          $("#inputWight").val(user.weight)
+          $("input[name='phone_number']").val(user.phone_number)
           $("#role").val(user.role)
           $('#modal_tambah').modal('show');
         })

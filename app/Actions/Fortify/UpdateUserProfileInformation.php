@@ -16,7 +16,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      * @param  array  $input
      * @return void
      */
-    public function update($user, array $input)
+    public function update($user, array $input, $isFromAdmin = false)
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -30,15 +30,22 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             ],
         ])->validateWithBag('updateProfileInformation');
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
+        if ($isFromAdmin) {
+            // dd($input);
+            $user->update($input);
         } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
-        }
+            if (
+                $input['email'] !== $user->email &&
+                $user instanceof MustVerifyEmail
+            ) {
+                $this->updateVerifiedUser($user, $input);
+            } else {
+                $user->forceFill([
+                    'name' => $input['name'],
+                    'email' => $input['email'],
+                ])->save();
+            }
+        };
     }
 
     /**

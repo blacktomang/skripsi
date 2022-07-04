@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -26,18 +30,16 @@ class UserController extends Controller
     {
         $query = User::query();
         $is_admin = $this->is_admin;
-        $users = $query->where('role', $this->is_admin)->paginate(10);
+        $query->when('keyword', function ($sub) use ($request) {
+            $keyword = $request->keyword;
+            $sub->where(function ($q) use ($keyword) {
+                $q->where('name', 'LIKE', "%$keyword%");
+            });
+        });
+        $users = $query->where('role', $this->is_admin)->where('id','!=', Auth::id())->paginate(10);
+
         if ($request->wantsJson()) {
             return view('pages.dashboard.users.pagination', compact('users', 'is_admin'))->render();
-        }
-        if ($request->keyword) {
-            $query->when('keyword', function ($sub) use ($request) {
-                $keyword = $request->keyword;
-                $sub->where(function ($q) use ($keyword) {
-                    $q->where('name', 'LIKE', "%$keyword%");
-                });
-            });
-            $users = $query->where('role', $this->is_admin)->paginate(10);
         }
         return view('pages.dashboard.users.index', compact('users', 'is_admin'));
     }
@@ -60,7 +62,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $createUserAction = new CreateNewUser();
+        $user = $createUserAction->create($request->all(), true);
+        if (!$user) return response()->json([
+            'status' => false,
+            'message' => [
+                'head' => 'Gagal',
+                'body' => "User $user->name gagal ditambahkan!"
+            ]
+        ], 500);
+
+        return response()->json([
+            'status' => true,
+            'message' => [
+                'head' => 'Berhasil',
+                'body' => "User $user->name berhasil ditambahkan!"
+            ]
+        ], 201);
     }
 
     /**
@@ -102,7 +120,39 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        try {
+            $updateUserInformation = new UpdateUserProfileInformation();
+            $updateProfil = $updateUserInformation->update($user, $request->except('id', 'password'),true);
+            $updatePassword = true;
+            if ($request->password) {
+                $updateUserPassword = new UpdateUserPassword();
+                $successPassUpdate = $updateUserPassword->update($user, $request->all(), true);
+              
+            }
+           return response()->json([
+                'status' => true,
+                'message' => [
+                    'head' => 'Berhasil',
+                    'body' => "User $user->name berhasil diupdate!"
+                ]
+            ], 200);
+            return response()->json([
+                'status' => false,
+                'message' => [
+                    'head' => 'Gagal',
+                    'body' => "User $user->name gagal diupdate!". $updateProfil
+                ]
+            ], 500);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => [
+                    'head' => 'Gagal',
+                    'body' => $th->getMessage()
+                ]
+            ], 500);
+        }
     }
 
     /**
@@ -113,6 +163,21 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if (!$user) return response()->json([
+            'status' => false,
+            'message' => [
+                'head' => 'Gagal',
+                'body' => "User dengan id $id tidak ditemukan."
+            ]
+        ], 404);
+        $user->delete();
+        return response()->json([
+            'status' => true,
+            'message' => [
+                'head' => 'Berhasil',
+                'body' => "User $user->name berhasil dihapus!"
+            ]
+        ], 200);
     }
 }

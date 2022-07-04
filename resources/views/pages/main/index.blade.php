@@ -4,12 +4,11 @@
   <div class="hero-slider">
     @php
     $promo = [];
-    $products = [];
     $testimonial = [];
     @endphp
     @forelse ($promo as $item)
     <a class="single-hero"
-      style="background-image: url('{{ asset('' . $item->foto) ?? asset('images/promo/default-promo.svg')}}');"></a>
+      style="background-image: url('{{ asset('uploads/images/' . $item->foto) ?? asset('images/promo/default-promo.svg')}}');"></a>
     @empty
     <a class="single-hero" style="background-image: url('{{ asset('images/promo/default-promo.svg')}}');"></a>
     @endforelse
@@ -25,11 +24,11 @@
         </div>
       </div>
       @foreach ($products as $item)
-      <div class="col-lg-3">
+      <div class="col-lg-4" onclick="window.location.href = '{{ route('product-detail', $item->slug) }}'">
         <div style="cursor: pointer;" onclick="" class="single-item-grid">
           <div class="image">
-            @if (!$item->foto->isEmpty())
-            <img src="{{ asset('' . foto_utama($item->foto)) }}" alt="#">
+            @if (!$item->photos->isEmpty())
+            <img src="{{ asset('uploads/images/' . ($item->photos[0]->value)) }}" alt="#">
             @else
             <img src="{{ asset('images/product/default-product.svg') }}" alt="#">
             @endif
@@ -38,31 +37,24 @@
             <span class="flat-badge discount">-{{ $item->diskon }}%</span>
             @endif
             <div class="button">
-              @if (Auth::check())
-              <a class="btn"><i class="lni {{$item->stock>0?'lni-cart':'lni-timer'}}"></i> {{$item->stock>0?'Add to
-                Cart':'SOLD OUT'}}</a>
-              @else
-              <a class="btn"><i class="lni {{$item->stock>0?'lni-cart':'lni-timer'}}"></i> {{$item->stock>0?'Add to
-                Cart':'SOLD OUT'}}</a>
-              @endif
-              {{-- <a href="#" class="btn"><i class="lni lni-cart"></i> Add to
-                Cart</a> --}}
+              <a class="btn"><i class="lni lni-eye"></i> Detail</a>
             </div>
           </div>
           <div class="content">
-            <a href="javascript:void(0)" class="tag">Mobile</a>
             <h3 class="title">
-              <a href="{{ route('shop.show', $item->slug) }}">{{ $item->nama }}</a>
+              <a 
+              href="{{ route('product-detail', $item->slug) }}"
+              >{{ $item->name }}</a>
             </h3>
             <ul class="info">
               @php
-              $originalPrice = $item->harga;
+              $originalPrice = $item->price;
               $diskon = $originalPrice * $item->diskon/100;
               $newPrice = $originalPrice - $diskon;
               @endphp
-              <li class="price">Rp @convert($newPrice)
+              <li class="price">Rp {{number_format($newPrice)}}
                 @if ($item->diskon > 0)
-                <br><span class="old-price"> Rp @convert($originalPrice)</span>
+                <br><span class="old-price"> Rp {{number_format($originalPrice)}}</span>
                 @endif
               </li>
             </ul>

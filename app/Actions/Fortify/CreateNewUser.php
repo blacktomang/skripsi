@@ -29,8 +29,21 @@ class CreateNewUser implements CreatesNewUsers
         }
     }
 
-    public function create(array $input)
+    public function create(array $input, $registerByAdmin = false)
     {
+        if ($registerByAdmin) {
+            Validator::make($input, [
+                'name' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'min:11', 'max:13'],
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique(User::class),
+                ]               
+            ])->validate();
+        }
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'min:11', 'max:13'],
@@ -55,7 +68,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone_number' => $input['phone_number'],
             'added_by' => $this->isAdmin ? Auth::id() : null,
             'role' => isset($input['role']) && $this->isAdmin ? $input['role'] : 2,
-            'password' => Hash::make($input['password']),
+            'password' => Hash::make($input['password']??'12345678'),
         ]);
     }
 }

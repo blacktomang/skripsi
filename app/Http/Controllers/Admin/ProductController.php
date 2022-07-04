@@ -22,18 +22,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::query();
+        $query->when('keyword', function ($sub) use ($request) {
+            $keyword = $request->keyword;
+            $sub->where(function ($q) use ($keyword) {
+                $q->where('name', 'LIKE', "%$keyword%");
+            });
+        });
         $products = $query->paginate(10);
         if ($request->wantsJson()) {
             return view('pages.dashboard.products.pagination', compact('products'))->render();
-        }
-        if ($request->keyword) {
-            $query->when('keyword', function ($sub) use ($request) {
-                $keyword = $request->keyword;
-                $sub->where(function ($q) use ($keyword) {
-                    $q->where('name', 'LIKE', "%$keyword%");
-                });
-            });
-            $products = $query->paginate(10);
         }
         return view('pages.dashboard.products.index')->with('products', $products);
     }
@@ -202,7 +199,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $product = Product::with('photos')->find($id);
-            if ($product->photos()->count() > 0 ) {
+            if ($product->photos()->count() > 0) {
                 $imageTrait = new ImageTrait();
                 $imageTrait->delete($product->photos);
             }
