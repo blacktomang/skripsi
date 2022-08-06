@@ -6,7 +6,7 @@
   <meta name="csrf-token" id="head-csrf" content="{{ csrf_token() }}" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>@yield('title', 'Marketplace')</title>
+  <title>@yield('title', 'Jamu')</title>
   <!-- plugins:css -->
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -26,10 +26,10 @@
       width: 100% !important;
     }
 
-    .mdi::before {
+    /* .mdi::before {
       font-size: 24px;
       line-height: 14px;
-    }
+    } */
 
     .btn .mdi::before {
       position: relative;
@@ -56,10 +56,10 @@
       left: -8px;
     }
 
-    .nav .mdi::before {
+    /* .nav .mdi::before {
       position: relative;
       top: 4px;
-    }
+    } */
 
     .navbar .navbar-toggle .mdi::before {
       position: relative;

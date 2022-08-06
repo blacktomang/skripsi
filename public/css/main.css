@@ -1160,7 +1160,7 @@ ol {
 
 .button .btn:hover {
     background-color: #081828;
-    color: #fff;
+    color: #fff!important;
     -webkit-box-shadow: 0 1rem 3rem rgba(35, 38, 45, .15) !important;
     box-shadow: 0 1rem 3rem rgba(35, 38, 45, .15) !important
 }
@@ -1609,17 +1609,6 @@ ol {
     visibility: hidden
 }
 
-.navbar-nav .nav-item a::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 0%;
-    background: var(--bs-green);
-    -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out
-}
 
 .navbar-nav .nav-item a.active:before {
     width: 100%

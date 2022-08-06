@@ -28453,10 +28453,6 @@ div.tagsinput span.tag a {
   font-size: 13px;
 }
 
-.sidebar .nav .nav-item.active > .nav-link i.menu-arrow::before {
-  content: "\e64b";
-}
-
 .sidebar .nav .nav-item:hover > .nav-link i,
 .sidebar .nav .nav-item:hover > .nav-link .menu-title,
 .sidebar .nav .nav-item:hover > .nav-link .menu-arrow {
