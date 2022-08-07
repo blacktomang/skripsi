@@ -6202,7 +6202,6 @@ blockquote .shape {
 .product-images .images{
     display: flex;
     overflow-y: auto;
-    justify-content: space-between;
 }
 
 .product-images .images img{

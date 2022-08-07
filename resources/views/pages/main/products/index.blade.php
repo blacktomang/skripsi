@@ -3,22 +3,6 @@
 <section class="category-page section">
   <div class="container">
     <div class="row">
-      {{-- <div class="col-lg-3 d-none d-lg-block d-xl-block">
-        <div class="category-sidebar">
-
-          <div class="single-widget">
-            <h3>All Categories</h3>
-            <ul class="list">
-              @foreach ($categories as $item)
-              <li>
-                <a href="{{route('shop.index')}}?category={{ $item->slug }}"><i class="lni lni-dinner"></i>{{ $item->nama }}<span>{{ $item->products_count }}</span></a>
-              </li>
-
-              @endforeach
-            </ul>
-          </div>
-        </div>
-      </div> --}}
       <div class="col-lg-9">
         <div class="category-grid-list">
           <div class="row">

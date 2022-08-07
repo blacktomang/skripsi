@@ -39,5 +39,5 @@
     setTimeout(function() {
       $('#error').fadeOut('slow');
     }, 3000); // <-- time in milliseconds
-  }
+  };
 </script>

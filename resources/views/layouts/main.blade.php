@@ -24,15 +24,6 @@
 </head>
 
 <body>
-  <!-- <div class="preloader">
-    <div class="preloader-inner">
-      <div class="preloader-icon">
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div> -->
-
   @include('partials.main.navbar')
 
   @yield('content')
@@ -145,12 +136,11 @@
     function getCartCount() {
       $.ajax({
         type: "get",
-        url: "",
+        url: "{{route('getCartCount')}}",
         success: function(data) {
-          // console.log(data)
-
-          if (data > 0) {
-            $('#cart-indicator').text(data)
+          console.log(data)
+          if (data.message.body > 0) {
+            $('#cart-indicator').text(data.message.body)
             $('#cart-indicator').show()
           } else {
             $('#cart-indicator').hide();

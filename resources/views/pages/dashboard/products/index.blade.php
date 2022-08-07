@@ -17,7 +17,7 @@
         </form>
       </div>
     </div>
-    <div class="card-body table-responsive" id="table_data" >
+    <div class="card-body table-responsive" id="table_data">
       @include('pages.dashboard.products.pagination')
     </div>
   </div>
@@ -155,7 +155,7 @@
           countimageinput = product.photos.length;
           product.photos.map((item, i) => {
             images += `<div class="position-relative mt-2" id="image-${item.id}">
-                        <img src="${BASE_URL}/uploads/images/${item.value}" alt="${BASE_URL}/uploads/images/${item.value}" class="img-fluid" width="300"><button class="btn btn-sm btn-danger hapus position-absolute" style="top:0;right:0" onclick="deleteImage(${item.id})" type="button"><i class="fas fa-trash-alt"></i></button></div>`
+                        <img src="${BASE_URL}/uploads/images/${item.value}" alt="gambar ${product.name}-${i}" class="img-fluid" width="300"><button class="btn btn-sm btn-danger hapus position-absolute" style="top:0;right:0" onclick="deleteImage(${item.id})" type="button"><i class="fas fa-trash-alt"></i></button></div>`
           });
           $('#fieldFoto').html(`${images}`)
           $("#fieldFoto").addClass('d-flex');
@@ -233,11 +233,11 @@
                 $(`#image-${id}`).remove();
                 toastr.success(data.message.head, data.message.body)
                 refresh_table(URL_NOW);
-              }).catch((err)=>{
+              }).catch((err) => {
                 throwErr(err);
               })
           });
-        }else{
+        } else {
           return;
         }
       })

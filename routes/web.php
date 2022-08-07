@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\users\CartController;
 use App\Http\Controllers\users\ProfileController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', [ProfileController::class, 'index']);
+    // Route::get('/cart', [CartController::class, 'index']);
+    // Route::post('/cart', [CartController::class, 'store']);
+    // Route::patch('/cart/{id}', [CartController::class, 'update']);
+    // Route::patch('/cart/{id}', [CartController::class, 'destroy']);
+    Route::resource('cart', CartController::class);
+    Route::get('/cart-count', [CartController::class, 'countCart'])->name('getCartCount');
+    Route::get('/cart-total-price', [CartController::class, 'getTotalPrice'])->name('getTotalPrice');
 });
 
 Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], function () {

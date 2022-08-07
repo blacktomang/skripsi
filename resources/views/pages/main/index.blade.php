@@ -1,4 +1,5 @@
 @extends('layouts.main')
+
 @section('content')
 <section class="hero-area">
   <div class="hero-slider">
@@ -68,7 +69,6 @@
     </div>
   </div>
 </section>
-
 <section class="testimonials section">
   <div class="container">
     <div class="row">
@@ -136,9 +136,7 @@
   </div>
   </div>
 </section>
-
 @include('partials.flash-message-ajax')
-
 @endsection
 
 @section('js')
