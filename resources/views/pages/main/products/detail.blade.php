@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', $res['name'])
 @section('content')
 <section class="item-details section" style="padding:120px 0">
   <div class="container">

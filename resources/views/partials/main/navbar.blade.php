@@ -47,23 +47,23 @@
                     </div>
                   </div>
                     <div>
-                                        <a class="nav-link btn btn-circle btn-light p-0" href="{{url('/cart')}}"
-                                            style="border-radius:100%; height :40px; width:40px ">
-                                            <i class="lni lni-cart text-primary" style="font-size:20px;line-height:40px"></i>
-                                            <span id="cart-indicator" class="count" style=" 
-                                            display:none;
-                                            position: relative;
-                                            bottom: 50px;
-                                            right: -16px;
-                                            width: 20px;
-                                            height: 20px;
-                                            border-radius: 100%;
-                                            background: #F95F53;
-                                            color: #ffffff;
-                                            font-size: 11px;
-                                            ">2</span>
-                                        </a>
-                                    </div>
+                      <a class="nav-link btn btn-circle btn-light p-0" href="{{url('/cart')}}"
+                          style="border-radius:100%; height :40px; width:40px ">
+                          <i class="lni lni-cart text-primary" style="font-size:20px;line-height:40px"></i>
+                          <span id="cart-indicator" class="count" style=" 
+                          display:none;
+                          position: relative;
+                          bottom: 50px;
+                          right: -16px;
+                          width: 20px;
+                          height: 20px;
+                          border-radius: 100%;
+                          background: #F95F53;
+                          color: #ffffff;
+                          font-size: 11px;
+                          ">2</span>
+                      </a>
+                  </div>
                   <div class="">
                     <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                       <img class="img-avatar rounded-circle" src="{{ asset('images/auth/avatar.svg') }}" alt=" Profile image">
@@ -77,8 +77,9 @@
                         <!-- USER ONLY -->
                         <a href="/profile" class="dropdown-item"><i class="dropdown-item-icon lni lni-user text-secondary me-2"></i>Profil
                           Saya</a>
+                            <a href="/orders" class="dropdown-item"><i class="dropdown-item-icon lni lni-cart-full text-secondary me-2"></i>Pemesanan</a>
                         <!-- END USER ONLY -->
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item text-danger"><i class="dropdown-item-icon lni lni-power-switch text-danger me-2"></i>
+                        <a href="#" onclick="logout()" class="dropdown-item text-danger"><i class="dropdown-item-icon lni lni-power-switch text-danger me-2"></i>
                           <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                             @csrf
                           </form>

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', 'Beranda')
 @section('content')
 <section class="hero-area">
   <div class="hero-slider">

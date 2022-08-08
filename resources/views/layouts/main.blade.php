@@ -5,12 +5,10 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>@yield('title', 'Jamu')</title>
+  <title>Jamu | @yield('title', '')</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo.svg')}}" />
-
-
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
@@ -40,6 +38,9 @@
   <script src="{{asset('js/bootstrap.min.js')}}"></script>
   <script src="{{asset('js/app.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="{{asset('js/wow.min.js')}}"></script>
   <script src="{{asset('js/tiny-slider.js')}}"></script>
   <script src="{{asset('js/glightbox.min.js')}}"></script>
@@ -49,9 +50,11 @@
 
   <script>
     $(document).ready(function() {
+      @if(Auth::check())
       getUserNotif()
       getCartCount()
       setCompanyDataOnFooter()
+      @endif
     });
 
     function setCompanyDataOnFooter() {
@@ -148,6 +151,19 @@
         }
       });
     }
+    const logout = () => {
+      swal({
+          title: 'Yakin?',
+          text: "Anda akan logout!",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((result) => {
+          if (result) {
+            document.getElementById('logout-form').submit();
+          }
+        });
+    };
   </script>
 </body>
 

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Cart extends Model
 {
     use HasFactory;
-    protected $fillable = ["user_id", "product_id", "amount"];
+    protected $fillable = ["user_id", "product_id", "amount", "checked"];
 
     public function product():BelongsTo
     {

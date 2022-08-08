@@ -187,6 +187,12 @@ return [
          */
         App\Providers\FortifyServiceProvider::class,
 
+        /**
+         * Custom Provider
+         */
+
+         App\Providers\DecodeEncodeProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -210,7 +216,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Base64' => \App\Helpers\Base64Helper::class
     ])->toArray(),
 
 ];

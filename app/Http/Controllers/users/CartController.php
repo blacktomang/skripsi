@@ -27,7 +27,7 @@ class CartController extends Controller
     private function carts()
     {
         $user = Auth::user();
-        $carts = $user->carts()->with(['product'])->get();
+        $carts = $user->carts()->where('checked', 1)->with(['product'])->get();
         return $carts;
     }
 
@@ -85,11 +85,14 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate(['amount' => 'required|integer']);
+        $request->validate(['amount' => 'integer', 'checked' => 'integer']);
         try {
             $cart = Cart::find($id);
-
-            $cart->update(['amount' => $request->amount]);
+            if ($request->amount) {
+                $cart->update(['amount' => $request->amount]);
+            } else {
+                $cart->update(['checked' => $request->checked]);
+            }
 
             return $this->successResponse();
         } catch (\Throwable $th) {

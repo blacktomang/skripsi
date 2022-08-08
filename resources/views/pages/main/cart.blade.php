@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Keranjang')
 @section('content')
 <div class="breadcrumbs">
     <div class="container">
@@ -49,7 +50,7 @@
                                         onclick="changeCheckStat('{{$item->id}}')">
                                     @endif
                                     @if (!$item->product->photos->isEmpty())
-                                    <a href="{{url('product/detail')}}">
+                                    <a href="{{url('product/detail/'.$item->product->slug)}}">
                                       <img src="{{ asset('uploads/images/' . ($item->product->photos[0]->value)) }}" alt="#">
                                     </a>
                                     @else
@@ -59,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-12">
-                                <h5 class="product-name"><a href="{{url('product/detail')}}">{{$item->product->nama}}</a>
+                                <h5 class="product-name"><a href="{{url('product/detail')}}">{{$item->product->name}}</a>
                                 </h5>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
@@ -87,13 +88,6 @@
 
                 </div>
             </div>
-            @php
-            $ids = [];
-            foreach ($carts as $key => $value) {
-            array_push($ids, $value->id);
-            }
-
-            @endphp
             <div class="col-md-3">
                 <div class="total-amount">
                     <div class="row">
@@ -104,8 +98,14 @@
                                     <li id="totalKeranjang">Rp </li>
                                 </ul>
                                 <div class="button">
-                                    <a href="/checkout?ids=[{{implode(" ,",$ids)}}]" style="width:100% !important"
-                                        class="btn m-0">Checkout</a>
+                                    <form action="{{url('/checkout')}}" method="POST">
+                                        @csrf
+                                        {{-- <a href="/checkout" style="width:100% !important"
+                                            class="btn m-0">Checkout</a> --}}
+                                            <button class="btn m-0" type="submit" style="width:100% !important">
+                                                Checkout
+                                            </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,6 @@
             </div>
         </div>
     </div>
-
 </section>
 @endsection
 
