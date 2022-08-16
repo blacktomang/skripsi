@@ -67,27 +67,37 @@
 @section('js')
 <script>
   let selectedProvince = 0;
-  $(document).ready(() => {
-    selectedProvince = $("#province-from-controller").val()
-    selectClient = $('#provinsi').select2({
-      minimumInputLength: 1,
-      allowClear: true,
-      placeholder: 'Pilih Provinsi',
-      language: {
-        "noResults": function() {
-          return "Data Tidak ditemukan";
-        },
-        "searching": function() {
-          return "Mencari…"
-        },
-        "inputTooShort": function(e) {
-          return "Silahkan input " + (e.minimum - e.input.length) + " huruf atau lebih"
-        },
-        "errorLoading": function() {
-          return "Hasil tidak dapat ditampilkan"
-        },
-      },
-    });
+  // $(document).ready(() => {
+  //   selectedProvince = $("#province-from-controller").val()
+  //   selectClient = $('#provinsi').select2({
+  //     minimumInputLength: 1,
+  //     allowClear: true,
+  //     placeholder: 'Pilih Provinsi',
+  //     language: {
+  //       "noResults": function() {
+  //         return "Data Tidak ditemukan";
+  //       },
+  //       "searching": function() {
+  //         return "Mencari…"
+  //       },
+  //       "inputTooShort": function(e) {
+  //         return "Silahkan input " + (e.minimum - e.input.length) + " huruf atau lebih"
+  //       },
+  //       "errorLoading": function() {
+  //         return "Hasil tidak dapat ditampilkan"
+  //       },
+  //     },
+  //   });
+  // });
+
+  function whatsapp(e) {
+    
+  }
+  $("input[name='whatsapp']").on('input', function(){
+    if (this.value.length == 1) {
+      this.value = "+62"
+    } 
+    if(this.value.length != 1 && isNaN(Number(this.value))) this.value = this.value.replace(/[^0-9|\+]/, '');
   });
 
 </script>

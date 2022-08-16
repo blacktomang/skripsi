@@ -75,12 +75,13 @@
         <span class="menu-title">Profil</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="">
+    --}}
+    <li class="nav-item  {{str_contains(Request::url(), 'company-profile')?'active':''}}">
+      <a class="nav-link" href="{{route('company-profile')}}">
         <i class="menu-icon mdi mdi-card-bulleted"></i>
-        <span class="menu-title">Company Profil</span>
+        <span class="menu-title">Company Profile</span>
       </a>
-    </li> --}}
+    </li> 
     <!-- End Role -->
   </ul>
   @else

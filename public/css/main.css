@@ -8696,17 +8696,18 @@ blockquote .shape {
 }
 
 .footer {
-    background: #081828
+    background: #081828;
+    margin-top: 1rem;
 }
 
 .footer .footer-top {
     padding: 100px 0;
     padding-top: 70px;
-    border-bottom: 1px solid #ebebeb s
+    border-bottom: 1px solid #ebebeb;
 }
 
 .footer .single-footer {
-    margin-top: 30px
+    margin-top: 30px;
 }
 
 .footer .footer-logo{
@@ -8723,13 +8724,13 @@ blockquote .shape {
     padding-left: 70px;
     margin-bottom: 12px;
     min-width: 192px;
-    color: #e1e1e1
+    color: #e1e1e1;
 }
 
 .footer .single-footer.mobile-app .app-button .btn:hover {
     border-color: transparent;
     background: var(--bs-green);
-    color: #fff
+    color: #fff;
 }
 
 .footer .single-footer.mobile-app .app-button .btn:last-child {
@@ -8742,28 +8743,28 @@ blockquote .shape {
     left: 22px;
     top: 50%;
     -webkit-transform: translateY(-50%);
-    transform: translateY(-50%)
+    transform: translateY(-50%);
 }
 
 .footer .single-footer.mobile-app .app-button .btn .text {
     font-size: 14px;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .footer .single-footer.mobile-app .app-button .btn .text .small-text {
     font-weight: 400;
     font-size: 13px;
     display: block;
-    margin-bottom: -1px
+    margin-bottom: -1px;
 }
 
 .footer .single-footer.f-link li {
     display: block;
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 .footer .single-footer.f-link li:last-child {
-    margin: 0
+    margin: 0;
 }
 
 .footer .single-footer.f-link li a {

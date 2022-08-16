@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('company_profiles', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string("nama");
-            $table->text("desc");
-            $table->string("no_telp");
-            $table->string("whatsapp");
-            $table->text("alamat");
-            $table->string("email");
+            $table->string('name');
+            $table->string('jabatan');
+            $table->text('deskripsi');
+            $table->string('foto');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_profiles');
+        Schema::dropIfExists('testimonials');
     }
 };

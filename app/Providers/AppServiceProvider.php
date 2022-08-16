@@ -36,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
         $url = URL::current();
         if (!str_contains($url, 'dashboard')) {
             view()->composer('*', function ($view) {
-                $companyProfile = CompanyProfile::first();
-                $view->with(['companyProfile' => $companyProfile]);
+                $company_profile = CompanyProfile::first();
+                $view->with(['company_profile' => $company_profile]);
             });
         }
     }

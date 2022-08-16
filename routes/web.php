@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CompanyProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\TetimonialController;
 use App\Http\Controllers\users\CartController;
 use App\Http\Controllers\users\OrderController;
 use App\Http\Controllers\users\ProfileController;
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], functio
     Route::delete('/product-image/{id}', [ProductController::class, 'deleteImage'])->name('product-image.delete');
     Route::resource('users/admin', UserController::class);
     Route::resource('users/client', UserController::class);
+    Route::resource('testimonial', TetimonialController::class);
     Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company-profile');
     Route::post('/company-profile', [CompanyProfileController::class, 'store'])->name('company-profile.store');
 });

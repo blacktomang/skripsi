@@ -38,8 +38,6 @@ class CompanyProfileController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         try {
             $request->validate([
                 'nama' => 'required',
@@ -63,7 +61,7 @@ class CompanyProfileController extends Controller
                 // Buat data
                 $model = CompanyProfile::create($staging);
             }
-            return $this->successResponse();
+            return redirect()->back()->with('success', 'Company profile is successfully updated!');
         } catch (\Exception $e) {
             return $this->errorResponse();
         }
