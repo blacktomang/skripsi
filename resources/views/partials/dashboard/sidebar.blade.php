@@ -12,6 +12,30 @@
         <i class="menu-icon mdi mdi mdi-star"></i>
         <span class="menu-title">Produk</span>
       </a>
+    {{-- </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sale" aria-expanded="false" aria-controls="sale">
+        <i class="menu-icon mdi mdi-cart"></i>
+        <span class="menu-title">Penjualan</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse" id="sale">
+        <ul class="nav flex-column sub-menu">
+          <!-- badge berfungsi seperti notifikasi -->
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}">Tampilkan Semua</a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}?status_order=DIKEMAS">Dikemas <span id="DIKEMAS" class="badge badge-warning" style="color: white"></span></a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}?status_order=DIKIRIM">Dikirim <span id="DIKIRIM" class="badge badge-primary" style="color: white"></span></a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}?status_order=SELESAI">Selesai <span id="SELESAI" class="badge badge-success" style="color: white"></span></a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}?status_order=BELUM_DIBAYAR">Belum Dibayar <span id="BELUM_DIBAYAR" class="badge badge-dark" style="color: white"></span></a></li>
+          <li class="nav-item"> <a class="nav-link" href="{{route('order.index')}}?status_order=DIBATALKAN">Dibatalkan <span id="DIBATALKAN" class="badge badge-danger" style="color: white"></span></a></li>
+        </ul>
+      </div>
+    </li> --}}
+    <li class="nav-item {{str_contains(Request::url(), 'order')?'active':''}}">
+      <a class="nav-link" href="{{url('dashboard/order')}}">
+        <i class="menu-icon mdi mdi mdi-cart"></i>
+        <span class="menu-title">Order</span>
+      </a>
     </li>
     {{-- <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sale" aria-expanded="false" aria-controls="sale">
@@ -51,12 +75,13 @@
       </div>
     </li>
     <!-- Role Superadmin -->
-    {{-- <li class="nav-item">
+     <li class="nav-item {{str_contains(Request::url(), 'testimonial')?'active':''}}">
       <a class="nav-link" href="{{url('dashboard/testimonial')}}">
         <i class="menu-icon mdi mdi mdi-star"></i>
         <span class="menu-title">Testimonial</span>
       </a>
     </li>
+    {{--
     <li class="nav-item">
       <a class="nav-link" href="{{url('dashboard/promo')}}">
         <i class="menu-icon mdi mdi-tag"></i>

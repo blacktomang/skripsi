@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TetimonialController;
+use App\Http\Controllers\Admin\OrderController as OrderAdminController;
 use App\Http\Controllers\users\CartController;
 use App\Http\Controllers\users\OrderController;
 use App\Http\Controllers\users\ProfileController;
@@ -41,6 +42,8 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], functio
     Route::resource('products', ProductController::class);
     Route::patch('/product-status/{id}', [ProductController::class, 'updateStatus'])->name('product-status.update');
     Route::delete('/product-image/{id}', [ProductController::class, 'deleteImage'])->name('product-image.delete');
+    Route::resource('order', OrderAdminController::class); 
+    Route::patch('/order-status/{id}', [OrderAdminController::class, 'updateStatus'])->name('order-status.update');
     Route::resource('users/admin', UserController::class);
     Route::resource('users/client', UserController::class);
     Route::resource('testimonial', TetimonialController::class);
@@ -50,5 +53,5 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], functio
 
 Route::group(['prefix' => 'dashboard','middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('/profile', [UserController::class, 'index']); 
+    Route::get('/profile', [UserController::class, 'index']);
 });

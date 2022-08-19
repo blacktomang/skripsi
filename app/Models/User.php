@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Schema;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -59,5 +60,14 @@ class User extends Authenticatable
     public function orders():HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    protected function columns(){
+        return Schema::getColumnListing('users');
+    }
+    
+    public function scopeInclude($query, $value = array()) 
+    {
+      return $query->select( array_intersect( $this->columns(), $value) );
     }
 }

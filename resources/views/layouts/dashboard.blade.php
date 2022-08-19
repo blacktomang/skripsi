@@ -123,6 +123,7 @@
 
   @yield('modal')
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="{{asset('js/popper.min.js')}}"></script>
   <script src="{{asset('js/bootstrap.min.js')}}"></script>
   <script src="{{asset('js/app.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -151,10 +152,6 @@
         'X-CSRF-TOKEN': CSRF_TOKEN
       }
     });
-
-    $(window).ready(() => {
-      axios(URL_NOW);
-    })
 
     const refresh_table = url => {
       new Promise((resolve, reject) => {
@@ -253,6 +250,17 @@
         }
       })
     };
+
+    $('html').on('click', '.pagination a', function(e) {
+      e.preventDefault();
+      // console.log($(".pagination a"));
+      var url = $(this).attr('href');
+
+      axios.get(url).then(() => {
+        refresh_table(url);
+      });
+
+    });
   </script>
 
   @yield('js')

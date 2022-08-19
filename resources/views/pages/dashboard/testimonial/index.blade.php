@@ -6,6 +6,7 @@
         <button class="btn btn-primary" id="btnTambah">Tambah Testimonial</button>
     </div>
     <div class="col-lg-12 grid-margin stretch-card">
+    @include('partials.flash-message-ajax')
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-3">
@@ -22,7 +23,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive" id="table_data">
                     @include('pages.dashboard.testimonial.pagination')
                 </div>
             </div>
@@ -93,42 +94,131 @@
         $('#modal_tambah').modal('show')
         $("#formTambah")[0].reset()
     })
-    const deleteData = actionURL => {
-        $swal.fire({
-                title: 'Yakin?',
-                text: "Ingin menghapus data ini!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Tidak',
-                confirmButtonText: 'Ya!'
+
+    const editData = async (id) => {
+        $("#formTambah")[0].reset()
+        $("#inputID").val(id)
+        $("#modalTitle").html('Update Testimonial')
+        $("#deskripsi").val('')
+        type = 'UPDATE'
+
+        await new Promise(async (resolve, reject) => {
+            axios.get(`${URL_NOW}/${id}/edit`)
+                .then(async ({
+                data
+                }) => {
+                let {foto, name, jabatan, deskripsi} = data.data
+                    $('#preview').attr('src',foto)
+                    $('input[name="name"]').attr('value',name)
+                    $('input[name="jabatan"]').attr('value',jabatan)
+                    $('textarea[name="deskripsi"]').val(deskripsi)
+                    $('#modal_tambah').modal('show')
+                })
+                .catch(err => {
+                console.log('edit data', err)
+                swal({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
             })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    $('#deleteForm').attr('action', actionURL)
-                    $('#submitDelete').click()
+        })
+    };
+    const deleteData = id => {
+        swal({
+            title: 'Yakin?',
+            text: "Ingin menghapus data ini!",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((result) => {
+            if (result) {
+            new Promise((resolve, reject) => {
+                axios.delete(`${URL_NOW}/${id}`)
+                .then(({
+                    data
+                }) => {
+                    swal({
+                    icon: 'success',
+                    title: data.message.head,
+                    text: data.message.body
+                    })
+                    refresh_table(URL_NOW)
+                })
+                .catch(err => {
+                    let data = err.response.data
+                    console.error(err);
+                    swal({
+                        icon: 'error',
+                        title: data.message.head,
+                        text: data.message.body
+                    })
+                })
+            })
+            }
+        })
+    };
+
+    $("#formTambah").on('submit', async (e) => {
+        e.preventDefault();
+        let FormDataVar = new FormData($("#formTambah")[0]);
+        let image = $(".inputImage");
+        let tempName = "";
+        $("#modal_tambah").LoadingOverlay('show');
+        if (type == "STORE") {
+        for (var pair of FormDataVar.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        await new Promise((resolve, reject) => {
+            axios.post(`{{ route('testimonial.store') }}`, FormDataVar, {
+                headers: {
+                'Content-type': 'multipart/form-data'
                 }
             })
-    }
-
-    const editData = (actionURL,foto,name,jabatan,deskripsi) => {
-        $("#formTambah")[0].reset()
-        $("#inputID").val(user.id)
-        $("#modalTitle").html('Update Testimonial')
-        $("#inputName").val()
-
-         // Preparation
-        $("#formTambah").attr('action',actionURL)
-        $("#methodEdit").attr('value', "PUT")
-
-        $('input[name="foto"]').attr('value',foto)
-        $('input[name="name"]').attr('value',name)
-        $('input[name="jabatan"]').attr('value',jabatan)
-        $('textarea[name="deskripsi"]').val(deskripsi)
-
-        $('#modal_tambah').modal('show')
-    }
-
+            .then(({
+                data
+            }) => {
+                $("#modal_tambah").LoadingOverlay('hide');
+                $('#modal_tambah').modal('hide')
+                refresh_table(URL_NOW)
+                showSuccessMessage(data.message.body);
+                // swal({
+                //   icon: 'success',
+                //   title: data.message.head,
+                //   text: data.message.body
+                // });
+            })
+            .catch(err => {
+                console.error(err);
+                $("#modal_tambah").LoadingOverlay('hide');
+                throwErr(err)
+            })
+        })
+        } else if (type == "UPDATE") {
+        let id_product = $("#inputID").val()
+        FormDataVar.append('_method', 'PUT')
+        await new Promise((resolve, reject) => {
+            axios.post(`${URL_NOW}/${id_product}`, FormDataVar, {
+                headers: {
+                'Content-type': 'multipart/form-data'
+                }
+            })
+            .then(({
+                data
+            }) => {
+                $("#modal_tambah").LoadingOverlay('hide');
+                $('#modal_tambah').modal('hide')
+                showSuccessMessage(data.message.body);
+                refresh_table(URL_NOW)
+                // data.message.body
+            })
+            .catch(err => {
+                $("#modal_tambah").LoadingOverlay('hide');
+                throwErr(err)
+            })
+        })
+        }
+        $("#modal_tambah").LoadingOverlay('hide');
+    });
 </script>
 @endsection

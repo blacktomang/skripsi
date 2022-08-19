@@ -13,17 +13,20 @@
         @foreach ($testimonial as $item)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td><img style="width: 200px; object-fit: cover; " class="img-table-promo" src="{{ asset('storage/app/' . $item->foto) }}" alt="" title=""></td>
+            <td><img style="width: 200px; object-fit: cover; " class="img-table-promo" src="{{ storage_path().'/'.'app/'. $item->foto }}" alt="" title=""></td>
             <td>{{$item->name}}</td>
             <td>{{$item->jabatan}}</td>
             <td class="td-long-text">{{$item->deskripsi}}
             </td>
             <td>
-                <button type="button" class="btn-sm btn btn-success" onclick="editData('{{route('testimonial.update',$item->id)}}' , '{{$item->foto}}' , '{{$item->name}}' ,
-                '{{$item->jabatan}}' , '{{$item->deskripsi}}')"><i
-                        class="mdi mdi-pencil-box-outline"></i></button>
-                <button class="btn-sm btn btn-danger hapus" onclick="deleteData('{{route('testimonial.destroy' , $item->id)}}')" type="button"><i
-                        class="mdi mdi-delete"></i></button>
+                <button type="button" 
+                class="btn-sm btn btn-success" 
+                onclick="editData('{{$item->id}}')">
+                    <i class="mdi mdi-pencil-box-outline"></i>
+                </button>
+                <button class="btn-sm btn btn-danger hapus" onclick="deleteData('{{ $item->id}}')" type="button">
+                    <i class="mdi mdi-delete"></i>
+                </button>
             </td>
         </tr>
         @endforeach

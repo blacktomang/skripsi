@@ -94,7 +94,7 @@ class ProductController extends Controller
             ], 201);
         } catch (\Throwable $th) {
             DB::rollBack();
-            throw $th;
+            // throw $th;
             return response()->json([
                 'status' => false,
                 'message' => [
@@ -181,7 +181,7 @@ class ProductController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => [
-                    'head' => 'Berhasil',
+                    'head' => 'Gagal',
                     'body' => $th->getMessage()
                 ]
             ], 500);

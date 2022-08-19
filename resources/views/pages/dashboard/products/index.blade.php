@@ -305,16 +305,5 @@
     }
     $("#modal_tambah").LoadingOverlay('hide');
   });
-
-  $('html').on('click', '.pagination a', function(e) {
-    e.preventDefault();
-    // console.log($(".pagination a"));
-    var url = $(this).attr('href');
-
-    axios.get(url).then(() => {
-      refresh_table(url);
-    });
-
-  });
 </script>
 @endsection
