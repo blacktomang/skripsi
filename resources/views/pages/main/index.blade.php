@@ -7,14 +7,11 @@
             <!-- IF IMAGE -->
             <!-- <img src="{{asset('panel/images/promo/default-promo.svg')}}"> -->
             <!-- IF VIDEO -->
-            {{-- <video playsinline="true" loop="" autoplay="" muted=""> --}}
                 @if (isset($websettings->hero_file))
-                {{-- <source src="{{ asset('storage/' . $websettings->hero_file) }}" type="video/mp4"> --}}
-                  <a class="single-hero" style="background-image: url('{{ asset('storage/' . $websettings->hero_file)}}');"></a>
+                  <a class="single-hero" style="background-image: {{ asset('@getPath(websettings)'.$websettings->hero_file) }};"></a>
                 @else
                   <a class="single-hero" style="background-image: url('{{ asset('images/promo/default-promo.svg')}}');"></a>
                 @endif
-            {{-- </video> --}}
         </div>
         <div class="col-md-4 bg-dark hero-right">
             <div class="hero-desc">
