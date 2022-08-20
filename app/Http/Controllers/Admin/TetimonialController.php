@@ -58,10 +58,10 @@ class TetimonialController extends Controller
             'jabatan' => 'required',
             'deskripsi' => 'required'
         ]);
-        try {
-            $file_name = $request->foto->getClientOriginalName();
-            $foto = $request->foto->storeAs('public/testimonial', $file_name);
 
+        // dd(gettype($request->foto));
+        try {
+            $foto = $this->uploadImageAction->uploadAndGetFileName($request->foto, Testimonial::FILE_PATH);
             $testimonial = Testimonial::create([
                 'foto' => $foto,
                 'name' => $request->name,
@@ -82,7 +82,7 @@ class TetimonialController extends Controller
                 'message' => [
                     'head' => 'Gagal',
                     'body' =>
-                    json_encode($th)
+                    dd($th)
                 ]
             ], 500);
         }
@@ -146,9 +146,8 @@ class TetimonialController extends Controller
         ], 404);
 
         if ($request->foto) {
-            (new ImageTrait())->delete($testimonial->foto);
-            $file_name = $request->foto->getClientOriginalName();
-            $foto = $request->foto->storeAs('public/testimonial', $file_name);
+            $this->deleteImageAction->destroy(Testimonial::FILE_PATH, $testimonial);
+            $foto = $this->uploadImageAction->uploadAndGetFileName($request->foto, Testimonial::FILE_PATH);
         } else {
             $foto = $testimonial->foto;
         }
@@ -182,12 +181,12 @@ class TetimonialController extends Controller
             if (!$testimonial) {
                 return $this->errorResponse("Not found", 404);
             }
-            $this->removeImage($testimonial->foto);
-
-            if (Storage::delete($testimonial->foto)) {
+            $deleted = $this->deleteImageAction->destroy(Testimonial::FILE_PATH, $testimonial);
+            if ($deleted[0]) {
                 $testimonial->delete();
+            } else {
+                throw $deleted[1];
             }
-
             return response()->json([
                 'status' => true,
                 'message' => [
@@ -203,16 +202,6 @@ class TetimonialController extends Controller
                     'body' => $th->getMessage()
                 ]
             ], 500);
-        }
-    }
-
-    public function removeImage($path)
-    {
-
-        if (File::exists(public_path($path))) {
-            File::delete(public_path($path));
-        } else {
-            // dd('File does not exists.');
         }
     }
 }

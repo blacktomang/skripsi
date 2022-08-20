@@ -12,7 +12,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'added_by', 'description', 'slug', 'price', 'status'];
-
+    const FILE_PATH = 'products';
+    
     public function photos(): HasMany
     {
         return $this->hasMany(ProductImage::class);

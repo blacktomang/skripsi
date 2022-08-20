@@ -1,9 +1,9 @@
 @foreach ($products as $item)
-<div class="col-lg-4 col-md-6 col-12">
+<div class="col-lg-4 col-md-6 col-12" onclick="window.location.href='{{ route('product-detail', $item->slug) }}'">
         <div style="cursor: pointer;" onclick="" class="single-item-grid">
           <div class="image">
             @if (!$item->photos->isEmpty())
-            <img src="{{ asset('uploads/images/' . ($item->photos[0]->value)) }}" alt="#">
+            <img src="{{ asset('@getPath(products)'.$item->foto) }}" alt="#">
             @else
             <img src="{{ asset('images/product/default-product.svg') }}" alt="#">
             @endif
@@ -17,9 +17,7 @@
           </div>
           <div class="content">
             <h3 class="title">
-              <a 
-              href="{{ route('product-detail', $item->slug) }}"
-                >{{ $item->name }}</a>
+              <a >{{ $item->name }}</a>
             </h3>
             <ul class="info">
               @php

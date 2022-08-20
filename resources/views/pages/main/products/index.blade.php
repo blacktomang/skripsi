@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title','Produk')
 @section('content')
 <section class="category-page section">
   <div class="container">

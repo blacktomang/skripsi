@@ -37,20 +37,20 @@
 <div class="row mt-4">
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card bg-secondary costume-card">
-      <a href="?status_order=belum_dibayar" class="link-wrapper">
+      <a href="/dashboard/order" class="link-wrapper">
         <div class="card-body">
           <h4 class="card-title-costume">Belum Bayar</h4>
-          <h6 id='DASH_BELUM_DIBAYAR' class=""></h6>
+          <h6 id='DASH_BELUM_DIBAYAR' class="">{{$order_unpayed}}</h6>
         </div>
       </a>
     </div>
   </div>
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card bg-warning costume-card">
-      <a href="?status_order=dikemas" class="link-wrapper">
+      <a href="/dashboard/order" class="link-wrapper">
         <div class="card-body">
-          <h4 class="card-title-costume ">Dikemas</h4>
-          <h6 id='DASH_DIKEMAS' class=""></h6>
+          <h4 class="card-title-costume ">Diproses</h4>
+          <h6 id='DASH_DIKEMAS' class="">{{$order_process}}</h6>
         </div>
 
       </a>
@@ -58,10 +58,10 @@
   </div>
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card bg-info costume-card">
-      <a href="?status_order=dikirim" class="link-wrapper">
+      <a href="/dashboard/order" class="link-wrapper">
         <div class="card-body">
-          <h4 class="card-title-costume">Dikirim</h4>
-          <h6 id='DASH_DIKIRIM' class=""></h6>
+          <h4 class="card-title-costume">Selesai</h4>
+          <h6 id='DASH_DIKIRIM' class="">{{$order_finish}}</h6>
         </div>
 
       </a>
@@ -69,10 +69,10 @@
   </div>
   <div class="col-lg-3 grid-margin stretch-card">
     <div class="card bg-success costume-card">
-      <a href="?status_order=selesai" class="link-wrapper">
+      <a href="/dashboard/order" class="link-wrapper">
         <div class="card-body">
-          <h4 class="card-title-costume">Selesai</h4>
-          <h6 id='DASH_SELESAI' class=""></h6>
+          <h4 class="card-title-costume">Dibatalkan</h4>
+          <h6 id='DASH_SELESAI' class="">{{$order_canceled}}</h6>
         </div>
       </a>
     </div>

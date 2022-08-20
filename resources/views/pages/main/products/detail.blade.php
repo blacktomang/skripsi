@@ -10,7 +10,7 @@
             <main id="gallery">
               <div class="main-img">
                 @if (count($res['photos'])>0) <img id="displayVariant"
-                  src="{{ asset('uploads/images/' . ($res['photos'][0]['value'])) }}" id="current" alt="#"
+                  src="{{ asset('@getPath(products)'.$res['photos'][0]['value']) }}" id="current" alt="#"
                   style="max-height: 400px;">
                 @else
                 <img id="displayVariant" src="{{ asset('panel/images/product/default-product.svg') }}" id="current"
@@ -24,8 +24,8 @@
               <div class="d-flex images">
                 @if (count($res['photos'])>0)
                 @foreach ($res['photos'] as $item)
-                <div class="text-center img-variant-div" id="box{{$item['id']}}" onmouseover="setImage('{{asset('uploads/images/' . $item['value'])}}', 'image{{$item['id']}}', 'box{{$item['id']}}', `$res['photos'][0]['value']`)">
-                  <img id='image{{$item['id']}}' src="{{asset('uploads/images/' . $item['value'])}}"
+                <div class="text-center img-variant-div" id="box{{$item['id']}}" onmouseover="setImage('{{ asset('@getPath(products)'.$res['photos'][0]['value']) }}', 'image{{$item['id']}}', 'box{{$item['id']}}', `$res['photos'][0]['value']`)">
+                  <img id='image{{$item['id']}}' src="{{ asset('@getPath(products)'.$res['photos'][0]['value']) }}"
                     class="img img-variant" alt="#">
                 </div>
                 @endforeach

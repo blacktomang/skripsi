@@ -33,11 +33,17 @@ class AppServiceProvider extends ServiceProvider
             //  h:i a
             return "<?= Carbon\Carbon::parse($date)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('l, j F Y'); ?>";
         });
+        Blade::directive('getPath', function ($path) {
+            $basepath = "/storage/uploads/";
+            return  $basepath . $path ."/";
+        });
         $url = URL::current();
         if (!str_contains($url, 'dashboard')) {
             view()->composer('*', function ($view) {
                 $company_profile = CompanyProfile::first();
-                $view->with(['company_profile' => $company_profile]);
+                $view->with([
+                    'company_profile' => $company_profile,
+                ]);
             });
         }
     }

@@ -13,7 +13,7 @@
         @foreach ($testimonial as $item)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td><img style="width: 200px; object-fit: cover; " class="img-table-promo" src="{{ storage_path().'/'.'app/'. $item->foto }}" alt="" title=""></td>
+            <td><img style="width: 200px; object-fit: cover; " class="img-table-promo" src="{{ asset('@getPath(testimonials)'.$item->foto) }}" alt="" title=""></td>
             <td>{{$item->name}}</td>
             <td>{{$item->jabatan}}</td>
             <td class="td-long-text">{{$item->deskripsi}}

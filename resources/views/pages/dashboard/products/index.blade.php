@@ -49,8 +49,8 @@
             <label for="inputDescription">Deskripsi</label>
             <textarea name="description" id="inputDescription" cols="30" rows="5" class="form-control"></textarea>
           </div>
-          <p class="text-danger text-center" id="teksImage" style="display: none">Jangan upload gambar jika
-            tidak ingin mengubahnya</p>
+          {{-- <p class="text-danger text-center" id="teksImage" style="display: none">Jangan upload gambar jika
+            tidak ingin mengubahnya</p> --}}
           <div class="input-group control-group lst increment">
             <input type="file" name="image[]" id="inputImage" class="myfrm form-control inputImage">
             <div class="input-group-btn">
@@ -155,7 +155,7 @@
           countimageinput = product.photos.length;
           product.photos.map((item, i) => {
             images += `<div class="position-relative mt-2" id="image-${item.id}">
-                        <img src="${BASE_URL}/uploads/images/${item.value}" alt="gambar ${product.name}-${i}" class="img-fluid" width="300"><button class="btn btn-sm btn-danger hapus position-absolute" style="top:0;right:0" onclick="deleteImage(${item.id})" type="button"><i class="fas fa-trash-alt"></i></button></div>`
+                        <img src="${BASE_URL}@getPath(products)${item.value}" alt="gambar ${product.name}-${i}" class="img-fluid" width="300"><button class="btn btn-sm btn-danger hapus position-absolute" style="top:0;right:0" onclick="deleteImage(${item.id})" type="button"><i class="fas fa-trash-alt"></i></button></div>`
           });
           $('#fieldFoto').html(`${images}`)
           $("#fieldFoto").addClass('d-flex');

@@ -2,18 +2,37 @@
 @section('title', 'Beranda')
 @section('content')
 <section class="hero-area">
-  <div class="hero-slider">
-    @php
-    $promo = [];
-    $testimonial = [];
-    @endphp
-    @forelse ($promo as $item)
-    <a class="single-hero"
-      style="background-image: url('{{ asset('uploads/images/' . $item->foto) ?? asset('images/promo/default-promo.svg')}}');"></a>
-    @empty
-    <a class="single-hero" style="background-image: url('{{ asset('images/promo/default-promo.svg')}}');"></a>
-    @endforelse
-  </div>
+<div class="row">
+        <div class="col-md-8 hero-media p-0">
+            <!-- IF IMAGE -->
+            <!-- <img src="{{asset('panel/images/promo/default-promo.svg')}}"> -->
+            <!-- IF VIDEO -->
+            {{-- <video playsinline="true" loop="" autoplay="" muted=""> --}}
+                @if (isset($websettings->hero_file))
+                {{-- <source src="{{ asset('storage/' . $websettings->hero_file) }}" type="video/mp4"> --}}
+                  <a class="single-hero" style="background-image: url('{{ asset('storage/' . $websettings->hero_file)}}');"></a>
+                @else
+                  <a class="single-hero" style="background-image: url('{{ asset('images/promo/default-promo.svg')}}');"></a>
+                @endif
+            {{-- </video> --}}
+        </div>
+        <div class="col-md-4 bg-dark hero-right">
+            <div class="hero-desc">
+                @if (isset($websettings->hero_title))
+                <h2 class="h2">{{ $websettings->hero_title }}</h2>
+                @else
+                <h2 class="h2">Hello</h2>
+                @endif
+                @if (isset($websettings->hero_desc))
+                <p>{{ $websettings->hero_desc }}</p>
+                @else
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae nihil libero deleniti laudantium
+                    saepe dolor vero doloremque natus, eaque consequatur.</p>
+                @endif
+                <a href="{{url('/product')}}">Shop Now</a>
+            </div>
+        </div>
+    </div>
 </section>
 <section class="section">
   <div class="container">
@@ -29,7 +48,7 @@
         <div style="cursor: pointer;" onclick="" class="single-item-grid">
           <div class="image">
             @if (!$item->photos->isEmpty())
-            <img src="{{ asset('uploads/images/' . ($item->photos[0]->value)) }}" alt="#">
+            <img src="{{ asset('@getPath(products)'.$item->photos[0]->value) }}" alt="#">
             @else
             <img src="{{ asset('images/product/default-product.svg') }}" alt="#">
             @endif
@@ -70,71 +89,42 @@
   </div>
 </section>
 <section class="testimonials section">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-title align-center gray-bg">
-          <h2 class="wow fadeInUp" data-wow-delay=".4s"
-            style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">What People Say
-          </h2>
-        </div>
-      </div>
-    </div>
-    <div class="tns-outer" id="tns2-ow">
-      <div class="tns-nav" aria-label="Carousel Pagination"><button type="button" data-nav="0" aria-controls="tns2"
-          style="" aria-label="Carousel Page 1 (Current Slide)" class="tns-nav-active"></button><button type="button"
-          data-nav="1" tabindex="-1" aria-controls="tns2" style="" aria-label="Carousel Page 2"></button><button
-          type="button" data-nav="2" tabindex="-1" aria-controls="tns2" style="display:none"
-          aria-label="Carousel Page 3"></button></div>
-      <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span
-          class="current">5 to 6</span> of 3</div>
-      <div id="tns2-mw" class="tns-ovh">
-        <div class="tns-inner" id="tns2-iw">
-          <div class="row testimonial-slider  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tns2"
-            style="transition-duration: 0s; transform: translate3d(-36.3636%, 0px, 0px);">
-            @forelse ($testimonial as $item)
-            <div class="col-lg-4 col-md-6 col-12 tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-              <div class="single-testimonial">
-                <div class="quote-icon">
-                  <i class="lni lni-quotation"></i>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title align-center gray-bg">
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s"
+                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">What People Say
+                    </h2>
                 </div>
-                <div class="author">
-                  <img src="{{asset('images/auth/avatar.svg')}}" alt="Foto">
-                  <h4 class="name">
-                    {{$item->name}}
-                    <span class="deg">{{$item->jabatan}}</span>
-                  </h4>
-                </div>
-                <div class="text">
-                  <p>"{{$item->deskripsi}}"</p>
-                </div>
-              </div>
             </div>
-            @empty
-            <div class="col-lg-4 col-md-6 col-12 tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-              <div class="single-testimonial">
-                <div class="quote-icon">
-                  <i class="lni lni-quotation"></i>
-                </div>
-                <div class="author">
-                  <img src="{{asset('images/auth/avatar.svg')}}" alt="Foto">
-                  <h4 class="name">
-                    Contoh Kata Mereka
-                    {{-- <span class="deg">{{$item->jabatan}}</span> --}}
-                  </h4>
-                </div>
-                <div class="text">
-                  <p>"Pendapat mereka Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque, porro!"</p>
-                </div>
-              </div>
-            </div>
-            @endforelse
-          </div>
         </div>
-      </div>
+        <div class="row testimonial-slider ">
+            @foreach ($testimonials as $item)
+            <div class="col-lg-4 col-md-6 col-12 tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
+                <div class="single-testimonial">
+                    <div class="quote-icon">
+                        <i class="lni lni-quotation"></i>
+                    </div>
+                    <div class="author">
+                        @if (!$item->foto)
+                        <img src="{{asset('panel/images/auth/avatar.svg')}}" alt="Foto">
+                        @else
+                        <img src="{{ asset('@getPath(testimonials)'.$item->foto) }}" alt="Foto">
+                        @endif
+                        <h4 class="name">
+                            {{$item->name}}
+                            <span class="deg">{{$item->jabatan}}</span>
+                        </h4>
+                    </div>
+                    <div class="text">
+                        <p>"{{$item->deskripsi}}"</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
     </div>
-  </div>
-  </div>
 </section>
 @include('partials.flash-message-ajax')
 @endsection

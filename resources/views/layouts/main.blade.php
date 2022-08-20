@@ -5,7 +5,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>Jamu | @yield('title', '')</title>
+  <title>{{$company_profile->nama}} | @yield('title', '')</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo.svg')}}" />
@@ -51,97 +51,15 @@
   <script>
     $(document).ready(function() {
       @if(Auth::check())
-      getUserNotif()
       getCartCount()
-      setCompanyDataOnFooter()
       @endif
     });
-
-    function setCompanyDataOnFooter() {
-      $.ajax({
-        type: "GET",
-        url: "{{url('getCompanyData')}}",
-        success: function(data) {
-          console.log(data);
-          $('#footer-alamat').text(data.alamat)
-          $('#footer-telp').text(data.no_telp)
-          $('#footer-wa').text(data.whatsapp)
-          $('#footer-wa').attr('href', "https://wa.me/" + data.whatsapp)
-          $('#footer-email').text(data.email)
-          $('#footer-email').attr('href', "mailto:" + data.email)
-        }
-      });
-    }
-
-    function getUserNotif(status_order, tag_id) {
-      $.ajax({
-        type: "get",
-        url: "{{url('getUserNotif')}}",
-        // data: "status_order=" + status_order,
-        success: function(data) {
-          // console.log(data['view'])
-          // console.log(data)
-          $('#user-notif-container').empty()
-          $('#user-notif-container').html(data)
-          getUserNotifCount()
-        }
-      });
-    }
-
-    function markCustomerNotifAsRead(notif_id) {
-      $.ajax({
-        type: "get",
-        url: "{{url('markCustomerNotifAsRead')}}",
-        data: "id=" + notif_id,
-        success: function(data) {
-          // console.log(data)
-          console.log('Success update read_status')
-
-          // refresh
-          getUserNotif()
-        }
-      });
-    }
-
-    function markAllUserNotifAsRead() {
-      $.ajax({
-        type: "get",
-        url: "{{url('markAllUserNotifAsRead')}}",
-        success: function(data) {
-          // console.log(data)
-          console.log('Success update all notif read_status as seen')
-
-          $('#user-notif-container').empty()
-          $('#notif-indicator').hide()
-
-          // $('#user-notif-container').html(data)
-        }
-      });
-    }
-
-    function getUserNotifCount() {
-      $.ajax({
-        type: "get",
-        url: "{{url('getUserNotifCount')}}",
-        success: function(data) {
-          // console.log(data)
-
-          if (data > 0) {
-            $('#notif-indicator').text(data)
-            $('#notif-indicator').show()
-          } else {
-            $('#notif-indicator').hide();
-          }
-        }
-      });
-    }
 
     function getCartCount() {
       $.ajax({
         type: "get",
         url: "{{route('getCartCount')}}",
         success: function(data) {
-          console.log(data)
           if (data.message.body > 0) {
             $('#cart-indicator').text(data.message.body)
             $('#cart-indicator').show()

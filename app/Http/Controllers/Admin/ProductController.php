@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class ProductController extends Controller
 {
@@ -21,6 +22,7 @@ class ProductController extends Controller
     // use ImageTrait;
     public function index(Request $request)
     {
+
         $query = Product::query();
         $query->when('keyword', function ($sub) use ($request) {
             $keyword = $request->keyword;
@@ -59,6 +61,7 @@ class ProductController extends Controller
             'price' => 'required|string'
         ]);
 
+        $uploadedFileNames = [];
         DB::beginTransaction();
         try {
             $data = $request->all();
@@ -68,9 +71,7 @@ class ProductController extends Controller
 
             if ($request->image) {
                 $images = $request->image;
-                $uploadTraits = new ImageTrait(Product::class, ProductImage::class, $images);
-                // $uploadTraits
-                $countImages = $uploadTraits->count('product_id', $product->id);
+                $countImages = count($images);
                 if ($countImages > 5) {
                     return response()->json([
                         'status' => true,
@@ -80,8 +81,13 @@ class ProductController extends Controller
                         ]
                     ], 500);
                 }
-
-                $uploadTraits->upload('product_id', $product->id);
+                $uploadedFileNames = $this->uploadImageAction->uploadAndCreate(
+                    'product_id',
+                    $product->id,
+                    ProductImage::class,
+                    $images,
+                    'products'
+                );
             }
 
             DB::commit();
@@ -94,7 +100,7 @@ class ProductController extends Controller
             ], 201);
         } catch (\Throwable $th) {
             DB::rollBack();
-            // throw $th;
+            $this->deleteImageAction->destroy(Product::FILE_PATH, $uploadedFileNames);
             return response()->json([
                 'status' => false,
                 'message' => [
@@ -147,13 +153,13 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('id');
+        $uploadedFileNames = [];
         DB::beginTransaction();
         try {
-            $product = Product::find($id);
+            $product = Product::with('photos')->find($id);
             if ($request->image) {
                 $images = $request->image;
-                $uploadTraits = new ImageTrait(Product::class, ProductImage::class, $images);
-                $countImages = $uploadTraits->count('product_id', $product->id);
+                $countImages = $product->photos()->count();
                 if ($countImages >= 5) {
                     return response()->json([
                         'status' => true,
@@ -163,7 +169,13 @@ class ProductController extends Controller
                         ]
                     ], 500);
                 }
-                $uploadTraits->upload('product_id', $product->id);
+                $uploadedFileNames = $this->uploadImageAction->uploadAndCreate(
+                    'product_id',
+                    $product->id,
+                    ProductImage::class,
+                    $images,
+                    'products'
+                );
             }
             $data = $request->except(['id', 'image']);
             $data['price'] = floor((float)preg_replace('/[Rp. ]/', '', $request->price));
@@ -178,6 +190,7 @@ class ProductController extends Controller
             ], 200);
         } catch (\Throwable $th) {
             DB::rollBack();
+            $this->deleteImageAction->destroy(Product::FILE_PATH, $uploadedFileNames);
             return response()->json([
                 'status' => false,
                 'message' => [
@@ -200,8 +213,7 @@ class ProductController extends Controller
         try {
             $product = Product::with('photos')->find($id);
             if ($product->photos()->count() > 0) {
-                $imageTrait = new ImageTrait();
-                $imageTrait->delete($product->photos);
+                $this->deleteImageAction->destroy(Product::FILE_PATH, $product->photos);
             }
             $product->delete();
             DB::commit();
@@ -228,7 +240,7 @@ class ProductController extends Controller
     {
         $image = ProductImage::find($id);
         try {
-            (new ImageTrait())->delete($image);
+            $this->deleteImageAction->destroy(Product::FILE_PATH, $image);
             return response()->json([
                 'status' => false,
                 'message' => [

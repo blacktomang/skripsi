@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Testimonial;
+use App\Models\WebSetting;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
 {
     public function home()
     {
-        $products = Product::paginate(10);
-        return view('pages.main.index', compact('products'));
+        $websettings = WebSetting::first();
+        $testimonials= Testimonial::get();
+        $products = Product::where('status', 1)->paginate(10);
+        return view('pages.main.index', compact('products', 'websettings', 'testimonials'));
     }
 
     public function products(Request $request)
@@ -22,6 +26,7 @@ class ViewController extends Controller
                 $q->where('name', 'LIKE', "%$keyword%");
             });
         });
+        $query->where('status', 1);
         if ($request->wantsJson()) {
             return view('pages.main.products.pagination', compact('products'))->render();
         }

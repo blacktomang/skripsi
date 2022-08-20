@@ -1,5 +1,4 @@
 <footer class="footer">
-
   <div class="footer-top">
     <div class="container">
       <div class="row">
@@ -7,7 +6,7 @@
           <div class="single-footer f-contact">
             <img class="footer-logo" src="{{asset('images/logo-light.svg')}}" alt="Logo">
             <ul>
-              <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, sunt eum, veniam nesciunt iste dicta ipsam eius molestiae dolor rem pariatur accusantium, magni culpa atque.</li>
+              <li>{{$company_profile->desc}}</li>
               <li>Alamat : <span id="footer-alamat">{{$company_profile->alamat}}</span> <br>
                 Telpon : <span id="footer-telp">{{$company_profile->no_telp}}</span><br>
                 Whatsapp : <a id="footer-wa" href="https://wa.me/{{$company_profile->whatsapp}}">{{$company_profile->whatsapp}}</a><br>
