@@ -2,13 +2,13 @@
 @section('title', 'Beranda')
 @section('content')
 <section class="hero-area">
-<div class="row">
+  <div class="row">
         <div class="col-md-8 hero-media p-0">
             <!-- IF IMAGE -->
             <!-- <img src="{{asset('panel/images/promo/default-promo.svg')}}"> -->
             <!-- IF VIDEO -->
                 @if (isset($websettings->hero_file))
-                  <a class="single-hero" style="background-image: {{ asset('@getPath(websettings)'.$websettings->hero_file) }};"></a>
+                  <a class="single-hero" style="background-image: url('{{ asset('@getPath(websettings)'.$websettings->hero_file) }}');"></a>
                 @else
                   <a class="single-hero" style="background-image: url('{{ asset('images/promo/default-promo.svg')}}');"></a>
                 @endif
@@ -27,6 +27,24 @@
                     saepe dolor vero doloremque natus, eaque consequatur.</p>
                 @endif
                 <a href="{{url('/product')}}">Shop Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section about-section" id="about">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="section-title">
+                <h2 class="wow fadeInUp" data-wow-delay=".4s"
+                    style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">About Us</h2>
+            </div>
+            <div class="col-lg-8 text-center">
+                @if (isset($websettings->about))
+                    <p>{{ $websettings->about }}</p>
+                @else
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque sunt ipsum perspiciatis voluptatum.
+                    Doloribus enim, molestiae illum quos inventore voluptatem.</p>
+                @endif
             </div>
         </div>
     </div>
@@ -80,7 +98,11 @@
       </div>
       @endforeach
       <div class="col-12 text-center">
-        <a href="" class="mt-5 btn btn-outline-primary">Lihat Semua Produk</a>
+        @if(count($products)>3)
+        <a href="/product" class="mt-5 btn btn-outline-primary">Lihat Semua Produk</a>
+        @else
+        <p class="badge badge-warning">Produk belum tersedia</p>
+        @endif
       </div>
     </div>
   </div>

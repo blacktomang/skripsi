@@ -48,6 +48,8 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], functio
     Route::patch('/order-status/{id}', [OrderAdminController::class, 'updateStatus'])->name('order-status.update');
     Route::resource('users/admin', UserController::class);
     Route::resource('users/client', UserController::class);
+    Route::patch('users/admin-status/{id}', [UserController::class, 'updateStatus'])->name('admin.status-update');
+    Route::patch('users/client-status/{id}', [UserController::class, 'updateStatus'])->name('client.status-update');
     Route::resource('testimonial', TetimonialController::class);
     Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company-profile');
     Route::post('/company-profile', [CompanyProfileController::class, 'store'])->name('company-profile.store');

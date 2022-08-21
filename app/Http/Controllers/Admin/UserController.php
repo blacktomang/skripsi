@@ -180,4 +180,36 @@ class UserController extends Controller
             ]
         ], 200);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate(['status'=>'required|integer']);
+        try {
+            $user = User::find($id);
+            if (!$user) return response()->json([
+                'status' => false,
+                'message' => [
+                    'head' => 'Gagal',
+                    'body' => "User dengan id $id tidak ditemukan."
+                ]
+            ], 404);
+            $user->update(['status'=>$request->status]);
+            
+            return response()->json([
+                'status' => true,
+                'message' => [
+                    'head' => 'Berhasil',
+                    'body' => "User $user->name berhasil diupdate!"
+                ]
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => [
+                    'head' => 'Gagal',
+                    'body' => $th->getMessage()
+                ]
+            ], 500);
+        }
+    }
 }

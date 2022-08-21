@@ -10,7 +10,7 @@ class WebsettingController extends Controller
 {
     public function index()
     {
-        $singleData = WebSetting::all()->first();
+        $singleData = WebSetting::first();
 
         return view('pages.dashboard.settings.index', [
             'data' => $singleData
@@ -19,7 +19,7 @@ class WebsettingController extends Controller
 
     public function getSettingsData()
     {
-        $singleData = WebSetting::all()->first();
+        $singleData = WebSetting::first();
 
         return response()->json($singleData);
     }
@@ -40,7 +40,7 @@ class WebsettingController extends Controller
         ]);
         $staging = $request->all();
         $websetting = WebSetting::first();
-        $video = $websetting->hero_file;
+        $video = null;
         if ($request->file('hero_file')) {
             // $request['hero_file'] = $request->file('hero_file')->store('web-setting');
             $video = $this->uploadImageAction->uploadAndGetFileName($request->hero_file, WebSetting::FILE_PATH);
@@ -49,6 +49,7 @@ class WebsettingController extends Controller
         // Jika data sudah ada
         if ($websetting) {
             // update data
+            $video = $websetting->hero_file;
             if ($request->file('hero_file')) $this->deleteImageAction->destroy(WebSetting::FILE_PATH, $websetting->hero_file);
             $websetting
                 ->update([

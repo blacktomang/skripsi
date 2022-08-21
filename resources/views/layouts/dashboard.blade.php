@@ -164,7 +164,6 @@
             $('#table_data').html(data)
           })
           .catch(err => {
-            console.log(err)
             $("#table_data").LoadingOverlay('hide')
             swal({
               icon: 'error',
@@ -251,11 +250,11 @@
       })
     };
 
+    let urlpagination = null;
     $('html').on('click', '.pagination a', function(e) {
       e.preventDefault();
-      // console.log($(".pagination a"));
       var url = $(this).attr('href');
-
+      urlpagination = url;
       axios.get(url).then(() => {
         refresh_table(url);
       });

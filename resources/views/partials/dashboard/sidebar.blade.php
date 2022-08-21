@@ -107,6 +107,12 @@
         <span class="menu-title">Company Profile</span>
       </a>
     </li> 
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('web-settings') }}">
+        <i class="menu-icon mdi mdi-web"></i>
+        <span class="menu-title">Web Settings</span>
+      </a>
+    </li>
     <!-- End Role -->
   </ul>
   @else

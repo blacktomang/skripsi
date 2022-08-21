@@ -88,17 +88,15 @@
 
   const setStatusProduct = async (id, status) => {
 
-    let url = "{{ $is_admin? route('admin.update', ':id'):route('admin.client', ':id')}}";
+    let url = "{{ $is_admin? route('admin.status-update', ':id'):route('client.status-update', ':id')}}";
     url = url.replace(':id', id);
 
     await axios.patch(url, {
       status: status
     }).then((d) => {
-      console.info(d);
-      showSuccessMessage(`Produk berhasil ${status?'diaktifkan':'dinonaktifkan'}`);
-      refresh_table(URL_NOW);
+      showSuccessMessage(`User berhasil ${status?'diaktifkan':'dinonaktifkan'}`);
+      refresh_table(urlpagination?urlpagination:URL_NOW);
     }).catch((e) => {
-      console.error(e);
       throwErr(e);
     })
   }
@@ -122,7 +120,6 @@
           $('#modal_tambah').modal('show');
         })
         .catch(err => {
-          console.log('edit data', err)
           swal({
             icon: 'error',
             title: 'Oops...',
@@ -185,7 +182,7 @@
               }) => {
                 $(`#image-${id}`).remove();
                 toastr.success(data.message.head, data.message.body)
-                refresh_table(URL_NOW);
+                refresh_table(urlpagination?urlpagination:URL_NOW);
               }).catch((err) => {
                 throwErr(err);
               })
@@ -203,9 +200,6 @@
     let tempName = "";
     $("#modal_tambah").LoadingOverlay('show');
     if (type == "STORE") {
-      for (var pair of FormDataVar.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
       await new Promise((resolve, reject) => {
         axios.post(`{{ $is_admin == 1 ? route('admin.store'):route('client.store') }}`, FormDataVar, {
             headers: {

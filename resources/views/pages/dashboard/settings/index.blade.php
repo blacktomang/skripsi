@@ -15,27 +15,27 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="hero-file">Hero File</label>
-                                <input type="file" name="hero_file" value="{{old('hero_file')}}" class="form-control">
+                                <input type="file" name="hero_file" value="{{$data->hero_file??''}}" class="form-control">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="hero-desc">Hero Title</label>
-                                <input type="text" name="hero_title" class="form-control" value="{{ old('hero_title') }}">
+                                <input type="text" name="hero_title" class="form-control" value="{{ $data->hero_title??''}}">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="hero-desc">Hero Description</label>
                                 <textarea required class="form-control" name="hero_desc"
-                                    rows="3">{{ old('hero_desc')}}</textarea>
+                                    rows="3">{{ $data->hero_desc??''}}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="about">About</label>
                                 <textarea required class="form-control" name="about"
-                                    rows="3">{{ old('about')}}</textarea>
+                                    rows="3">{{ $data->about??''}}</textarea>
                             </div>
                         </div>
                     </div>

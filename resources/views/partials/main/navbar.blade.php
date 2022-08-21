@@ -91,18 +91,10 @@
                 </div>
                 @else
                 <li class="nav-item ">
-                  <!-- <div class="login-button">
-                    <ul> -->
-                      {{-- <li> --}}
                         <a href="{{url('login')}}" style="padding:0;"><i class="lni lni-enter"></i> Login</a>
-                      {{-- </li> --}}
-                    <!-- </ul>
-                  </div> -->
                  </li> 
-                <li class="nav-item button header-button">
-                  {{-- <div class="button header-button"> --}}
-                    <a href="{{url('register')}}" class="btn">Register</a>
-                  {{-- </div> --}}
+                <li class="nav-item ">
+                    <a href="{{url('register')}}" class="btn" style="color: white;background:black;padding:.5rem;">Register</a>
                 </li>
                 @endauth
               </ul>

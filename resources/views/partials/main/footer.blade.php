@@ -6,11 +6,11 @@
           <div class="single-footer f-contact">
             <img class="footer-logo" src="{{asset('images/logo-light.svg')}}" alt="Logo">
             <ul>
-              <li>{{$company_profile->desc}}</li>
-              <li>Alamat : <span id="footer-alamat">{{$company_profile->alamat}}</span> <br>
-                Telpon : <span id="footer-telp">{{$company_profile->no_telp}}</span><br>
-                Whatsapp : <a id="footer-wa" href="https://wa.me/{{$company_profile->whatsapp}}">{{$company_profile->whatsapp}}</a><br>
-                Email : <a id="footer-email" href="mailto:{{$company_profile->email}}">{{$company_profile->email}}</a>
+              <li>{{$company_profile->desc??''}}</li>
+              <li>Alamat : <span id="footer-alamat">{{$company_profile->alamat??''}}</span> <br>
+                Telpon : <span id="footer-telp">{{$company_profile->no_telp??''}}</span><br>
+                Whatsapp : <a id="footer-wa" href="https://wa.me/{{$company_profile->whatsapp??''}}">{{$company_profile->whatsapp??''}}</a><br>
+                Email : <a id="footer-email" href="mailto:{{$company_profile->email??''}}">{{$company_profile->email??''}}</a>
               </li>
             </ul>
           </div>
@@ -19,7 +19,7 @@
           <div class="single-footer f-link">
             <h3>Bantuan dan Panduan</h3>
             <ul>
-              <li><a href="javascript:void(0)">Tentang Kami </a></li>
+              <li><a href="#about">Tentang Kami </a></li>
               <li><a href="javascript:void(0)">Hubungi Kami </a></li>
               <li><a href="javascript:void(0)">FAQ</a></li>
               <li><a href="javascript:void(0)">Syarat dan Ketentuan</a></li>
