@@ -100,8 +100,9 @@
       <div class="col-12 text-center">
         @if(count($products)>3)
         <a href="/product" class="mt-5 btn btn-outline-primary">Lihat Semua Produk</a>
-        @else
-        <p class="badge badge-warning">Produk belum tersedia</p>
+        @endif
+        @if(count($products)==0)
+          <p class="badge badge-warning">Produk belum tersedia</p>
         @endif
       </div>
     </div>

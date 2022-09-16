@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-fixed sidebar-offcanvas" id="sidebar">
   @if (Auth::user()->role == 1)
   <ul class="nav">
-    <li class="nav-item">
+    <li class="nav-item {{(Request::path() === 'dashboard')?'active':''}}">
       <a class="nav-link" href="{{url('dashboard')}}">
         <i class="menu-icon mdi mdi-laptop"></i>
         <span class="menu-title">Dashboard</span>
