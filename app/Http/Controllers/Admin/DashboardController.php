@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     private function formateDate($date)
     {
-        return Carbon::createFromFormat('d-m-Y', $date)->format('Y-m-d');
+        return Carbon::createFromFormat('d-m-Y', $date)->startOfDay()->format('Y-m-d');
     }
     public function index()
     {
@@ -25,30 +25,32 @@ class DashboardController extends Controller
         $endDate = request()->get('end_date') ? $this->formateDate(request()->get('end_date')) : null;
 
         if ($startDate && $endDate) {
-            $order_unpayed = Order::where('status', 0)->whereBetween('created_at', [$startDate, $endDate])->count();
-            $order_process = Order::where('status', 1)->whereBetween('created_at', [$startDate, $endDate])->count();
-            $order_finish = Order::where('status', 2)->whereBetween('created_at', [$startDate, $endDate])->count();
-            $order_canceled = Order::where('status', 3)->whereBetween('created_at', [$startDate, $endDate])->count();
+            $order_unpayed = Order::where('status', 0)->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])->count();
+            $order_process = Order::where('status', 1)->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])->count();
+            $order_finish = Order::where('status', 2)->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])->count();
+            $order_canceled = Order::where('status', 3)->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])->count();
             $grafikOrder = DB::table('orders as o')
                 ->selectRaw('count(o.id) as value, month(o.created_at) as label')
-                ->whereBetween('o.created_at', [$startDate, $endDate])
-                ->groupBy('o.created_at')->get();
+                ->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])
+                ->groupBy(DB::raw('month(`created_at`)'))->get();
+
             $grafikOrderByStatus = DB::table('orders as o')
                 ->selectRaw('count(o.id) as value, o.status as status')
-                ->whereBetween('o.created_at', [$startDate, $endDate])
+                ->whereBetween(DB::raw('DATE(`created_at`)'), [$startDate, $endDate])
                 ->groupBy('o.status')->get();
         } else {
-            $order_unpayed = Order::where('status', 0)->where('created_at', Carbon::now())->count();
-            $order_process = Order::where('status', 1)->where('created_at', Carbon::now())->count();
-            $order_finish = Order::where('status', 2)->where('created_at', Carbon::now())->count();
-            $order_canceled = Order::where('status', 3)->where('created_at', Carbon::now())->count();
+            $order_unpayed = Order::where('status', 0)->where('created_at', '>=', Carbon::now()->startOfDay())->count();
+            $order_process = Order::where('status', 1)->where('created_at', '>=', Carbon::now()->startOfDay())->count();
+            $order_finish = Order::where('status', 2)->where('created_at', '>=', Carbon::now()->startOfDay())->count();
+            $order_canceled = Order::where('status', 3)->where('created_at', '>=', Carbon::now()->startOfDay())->count();
             $grafikOrder = DB::table('orders as o')
                 ->selectRaw('count(o.id) as value, month(o.created_at) as label')
-                ->where('o.created_at', Carbon::now())
-                ->groupBy('o.created_at')->get();
+                ->where('o.created_at', '>=', Carbon::now()->startOfDay())
+                ->groupBy(DB::raw('month(`created_at`)'))->get();
+
             $grafikOrderByStatus = DB::table('orders as o')
                 ->selectRaw('count(o.id) as value, o.status as status')
-                ->where('o.created_at', Carbon::now())
+                ->where('o.created_at', '>=', Carbon::now()->startOfDay())
                 ->groupBy('o.status')->get();
         }
 

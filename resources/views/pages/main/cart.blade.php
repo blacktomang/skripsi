@@ -51,7 +51,7 @@
                                     @endif
                                     @if (!$item->product->photos->isEmpty())
                                     <a href="{{url('product/detail/'.$item->product->slug)}}">
-                                      <img src="{{ asset('uploads/images/' . ($item->product->photos[0]->value)) }}" alt="#">
+                                      <img src="{{ asset('@getPath(products)'.$item->product->photos[0]->value) }}" alt="#">
                                     </a>
                                     @else
                                     <img src="{{ asset('images/product/default-product.svg') }}" alt="#">

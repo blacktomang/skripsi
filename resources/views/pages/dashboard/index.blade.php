@@ -276,7 +276,7 @@ $('#end_date').datepicker({
       case 2:
         return 'Selesai'     
       default:
-        break;
+        return 'dibatalkan'
     }
   }
   settingGrafikOrderByStatus = {
