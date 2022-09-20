@@ -24,18 +24,30 @@
         <div class="card">
           <div class="card-body">
             <div class="text-center">
+              @if($detail->status < 3)
               <div class="alert alert-success">
+                @if($detail->status==0)
                 Pemesanan telah kami terima<br> Klik di <a target="_blank" href="https://wa.me/62895352530708?text=Saya%20ingin%20menkonfirmasi%20order%20dengan%20kode%20{{$detail->code}}" class="">sini</a>
-                untuk konfirmasi pemesanan</span>
+                untuk konfirmasi pemesanan dan pembayaran</span>
+                @elseif($detail->status==1)
+                Terimakasih sudah percaya D'Lima, pesanan anda sedang kami proses
+                @elseif($detail->status==2)
+                Pesanan anda telah selesai, terimakasih sudah menjadi pelanggan D'Lima
+                @endif
               </div>
+              @else
+              <div class="alert alert-success">
+                Mohon maaf, transaksi anda gagal
+              </div>
+              @endif
               <div class="mt-2">Kode Transaksi</div>
               <h4 class="text-primary mt-2">{{$detail->code}}</h4>
               <hr>
               <div>
                 <small 
-                class="badge @if($detail->status==0)badge-warning @elseif($detail->status==1)badge-success @else badge-danger @endif"
+                class="badge @if($detail->status==0)badge-warning @elseif($detail->status==1)badge-success -warning @elseif($detail->status==2)badge-success @else badge-danger @endif"
                 >
-                @if($detail->status==0)Menunggu Pembayaran @elseif($detail->status==1)Diproses @else Ditolak @endif
+                @if($detail->status==0)Menunggu Pembayaran @elseif($detail->status==1) Diproses @elseif($detail->status==2)Selesai @else Ditolak @endif
               </small>
               </div>
             </div>

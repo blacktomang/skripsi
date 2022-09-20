@@ -46,6 +46,10 @@
             <input type="text" name="price" id="inputPrice" class="form-control inputPrice" data-a-sign="Rp. " data-a-dec="," data-a-sep="." required>
           </div>
           <div class="form-group">
+            <label for="inputStock">Stok</label>
+            <input type="number" name="stock" id="inputStock" class="form-control" required>
+          </div>
+          <div class="form-group">
             <label for="inputDescription">Deskripsi</label>
             <textarea name="description" id="inputDescription" cols="30" rows="5" class="form-control"></textarea>
           </div>
@@ -53,9 +57,9 @@
             tidak ingin mengubahnya</p> --}}
           <div class="input-group control-group lst increment">
             <input type="file" name="image[]" id="inputImage" class="myfrm form-control inputImage">
-            <div class="input-group-btn">
+            {{-- <div class="input-group-btn">
               <button class="btn btn-success btn-success-images" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
-            </div>
+            </div> --}}
           </div>
           <div class="clone hide" hidden>
             <div class="hdtuto control-group lst input-group" style="margin-top:10px">
@@ -162,6 +166,7 @@
           $('#fieldFoto').show()
           $("#teksImage").show()
           $("input[name='name']").val(product.name)
+          $("input[name='stock']").val(product.stock)
           $("input[name='price']").val(`Rp. ${jsPriceFormat(product.price)}`)
           $("#inputWight").val(product.weight)
           $("#inputDescription").text(product.description)

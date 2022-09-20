@@ -134,6 +134,36 @@
         success: function(data) {
           getCartCount();
           showSuccessMessage("Success add item to cart.")
+        },
+        error:function(err){
+          if(err.status === 401) {
+            swal({
+                  icon: 'error',
+                  title: 'Gagal',
+                  text: 'Silahkan login terlebih dahulu!',
+                })
+                .then((isConfirm)=> {
+                  if(isConfirm) window.location.href = "/login"
+                })
+          }else if(400){
+            let message = err.responseJSON.message
+            swal({
+              icon: 'warning',
+              title: message.head,
+              text: message.body,
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((isConfirm)=>{
+              if(isConfirm) window.location.href = "https://wa.me/{{$company_profile->whatsapp??''}}";
+            })
+          }else{
+            swal({
+                  icon: 'error',
+                  title: 'Gagal',
+                  text: 'Mohon maaf, ada kesalahan di server kami.'
+                })
+          }
         }
       })
     return 1;

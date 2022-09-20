@@ -6,7 +6,7 @@
 <div class="col-lg-6 mx-auto">
   <div class="auth-form-light text-left py-5 px-4 px-sm-5">
     <div class="brand-logo text-center">
-      <img src="{{asset('images/logo.svg')}}" alt="logo" width="100px">
+      <img src="{{asset('images/logo.png')}}" alt="logo" width="100px">
     </div>
     <h4>Selamat Bergabung</h4>
     <h6 class="fw-light">Silahkan lengkapi pendaftaran berikut</h6>

@@ -81,6 +81,12 @@
         <span class="menu-title">Testimonial</span>
       </a>
     </li>
+    <li class="nav-item {{str_contains(Request::url(), 'news')?'active':''}}">
+      <a class="nav-link" href="{{url('dashboard/news')}}">
+        <i class="menu-icon mdi mdi mdi-newspaper"></i>
+        <span class="menu-title">Berita</span>
+      </a>
+    </li>
     {{--
     <li class="nav-item">
       <a class="nav-link" href="{{url('dashboard/promo')}}">

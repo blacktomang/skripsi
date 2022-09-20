@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CompanyProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\TetimonialController;
@@ -51,6 +52,7 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth', 'role']], functio
     Route::patch('users/admin-status/{id}', [UserController::class, 'updateStatus'])->name('admin.status-update');
     Route::patch('users/client-status/{id}', [UserController::class, 'updateStatus'])->name('client.status-update');
     Route::resource('testimonial', TetimonialController::class);
+    Route::resource('news', NewsController::class);
     Route::get('/company-profile', [CompanyProfileController::class, 'index'])->name('company-profile');
     Route::post('/company-profile', [CompanyProfileController::class, 'store'])->name('company-profile.store');
     Route::get('web-settings', [WebsettingController::class, 'index'])->name('web-settings');

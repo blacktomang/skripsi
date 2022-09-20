@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
           <div class="single-footer f-contact">
-            <img class="footer-logo" src="{{asset('images/logo-light.svg')}}" alt="Logo">
+            <img class="footer-logo" src="{{asset('images/logo.png')}}" alt="Logo">
             <ul>
               <li>{{$company_profile->desc??''}}</li>
               <li>Alamat : <span id="footer-alamat">{{$company_profile->alamat??''}}</span> <br>

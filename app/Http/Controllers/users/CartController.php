@@ -60,6 +60,7 @@ class CartController extends Controller
             $data = $request->only('slug', 'amount');
             $product = Product::where('slug', $data['slug'])->first();
             if (!$product) return $this->errorResponse("Not Found", 404);
+            if ($product->stock < $request->amount) return $this->errorResponse("Mohon maaf stok produk yang diminta sudah habis, Tanyakan admin?", 400);
             $data['product_id'] = $product->id;
             $cart = Cart::where([
                 ['user_id', '=', Auth::id()],

@@ -4,6 +4,7 @@
       <th scope="col">#</th>
       <th scope="col">Nama</th>
       <th scope="col">Harga</th>
+      <th scope="col">Stok</th>
       <th scope="col">Dibuat oleh</th>
       <th scope="col">Status</th>
       <th scope="col">Action</th>
@@ -13,8 +14,9 @@
     @forelse ($products as $key => $value)
     <tr>
       <td>{{ ($products->currentpage()-1) * $products->perpage() + $loop->index + 1 }}</th>
-      <td>{{ $value->name??0 }}</td>
+      <td>{{ $value->name??'' }}</td>
       <td>Rp .{{number_format($value->price)}}</td>
+      <td>{{$value->stock}}</td>
       <td>{{$value->creator->name}}</td>
       <td>
         @if ($value->status)
@@ -35,7 +37,7 @@
     </tr>
     @empty
     <tr>
-      <td colspan="6" class="text-center">Tidak ada data</td>
+      <td colspan="7" class="text-center">Tidak ada data</td>
     </tr>
     @endforelse
   </tbody>

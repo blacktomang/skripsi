@@ -11,7 +11,7 @@ use League\CommonMark\Normalizer\SlugNormalizer;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'added_by', 'description', 'slug', 'price', 'status'];
+    protected $fillable = ['name', 'added_by', 'description', 'slug', 'price', 'stock', 'status'];
     const FILE_PATH = 'products';
     
     public function photos(): HasMany

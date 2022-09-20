@@ -124,7 +124,7 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $order = Order::find($id);
+        $order = Order::with('details')->find($id);
         if (!$order) return response()->json([
             'status' => true,
             'message' => [
@@ -132,6 +132,15 @@ class OrderController extends Controller
                 'body' => "order tidak dapat ditemukan!"
             ]
         ], 404);
+
+        if ($request->status == 2) {
+            for ($i = 0; $i < count($order->details); $i++) {
+                $product = $order->details[$i]->product;
+                $product->update([
+                    'stock' => $product->stock -  $order->details[$i]->amount
+                ]);
+            }
+        }
         $order->update(['status' => $request->status]);
         return response()->json([
             'status' => false,

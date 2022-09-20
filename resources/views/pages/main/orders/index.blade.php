@@ -15,7 +15,7 @@
 <section class="section bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-2">
                 <div class="cart-list-head">
                     <div class="cart-list-title overflow-auto">                        
                         <div class="row">
@@ -50,8 +50,8 @@
                             </div>
                             <div class="col-lg-3 col-md-3 col-12">
                               <small
-                                class="badge @if($item->status==0)badge-warning @elseif($item->status==1)badge-success @else badge-danger @endif">
-                                @if($item->status==0)Menunggu Pembayaran @elseif($item->status==1)Diproses @else Ditolak @endif
+                                class="badge @if($item->status==0)badge-warning @elseif($item->status==1 || $item->status==2)badge-success  @else badge-danger @endif">
+                                @if($item->status==0)Menunggu Pembayaran @elseif($item->status==1)Diproses @elseif($item->status==2)Selesai @else Ditolak @endif
                               </small>
                             </div>
                             <div class="col-lg-2 col-md-2 col-12">
