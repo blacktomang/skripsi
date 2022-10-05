@@ -22,7 +22,7 @@ class NewsController extends Controller
                 $q->where('title', 'LIKE', "%$keyword%");
             });
         });
-        $news = $query->paginate(10);
+        $news = $query->orderBy('created_at', 'desc')->paginate(10);
         if ($request->wantsJson()) {
             return view('pages.dashboard.news.pagination', compact('news'))->render();
         }

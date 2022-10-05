@@ -36,6 +36,7 @@
         </tr> -->
     </tbody>
 </table>
+{{$news->links()}}
 
 <form action="" method="POST" id="deleteForm">
     @csrf

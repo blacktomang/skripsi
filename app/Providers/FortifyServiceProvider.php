@@ -55,6 +55,8 @@ class FortifyServiceProvider extends ServiceProvider
             $user = User::where('email', $request->email)->first();
             if ($user && Hash::check($request->password, $user->password)) {
                 return $user;
+            }else{
+                $request->session()->flash('status', 'Gagal, pastikan email dan sandi anda benar!'); return false; 
             }
         });
 

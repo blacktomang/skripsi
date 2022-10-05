@@ -30725,5 +30725,6 @@ div.tagsinput span.tag a {
 .td-long-text{
   white-space : unset !important;
   line-height:1.5 !important;
+  min-width:400px;
 }
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

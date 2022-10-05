@@ -19,7 +19,7 @@ class NewsController extends Controller
             });
         });
 
-        $news = $query->orderBy('id')->cursorPaginate(10);
+        $news = $query->orderBy('created_at', 'desc')->cursorPaginate(10);
         if ($request->wantsJson()) {
             return response()->json([
                 'render' => view('pages.main.news.pagination', compact('news'))->render(),

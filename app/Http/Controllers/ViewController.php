@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\Product;
 use App\Models\Testimonial;
 use App\Models\WebSetting;
@@ -14,7 +15,8 @@ class ViewController extends Controller
         $websettings = WebSetting::first();
         $testimonials= Testimonial::get();
         $products = Product::where('status', 1)->paginate(10);
-        return view('pages.main.index', compact('products', 'websettings', 'testimonials'));
+        $news = News::limit(3)->get();
+        return view('pages.main.index', compact('products', 'websettings', 'testimonials', 'news'));
     }
 
     public function products(Request $request)

@@ -74,7 +74,7 @@ class OrderController extends Controller
             $d['product_name'] = $value->product->name ?? '';
             $d['price'] = $value->price;
             $d['amount'] = $value->amount;
-            $d['foto'] = storage_path($value->product->photos[0]->value ?? '');
+            $d['foto'] = $value->product->photos[0]->value ?? '';
             array_push($dataOrder['details'], $d);
         }
 

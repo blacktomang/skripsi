@@ -108,13 +108,32 @@
     </div>
   </div>
 </section>
+<section class="section">
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="section-title align-center gray-bg">
+                  <h2 class="wow fadeInUp" data-wow-delay=".4s"
+                      style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">Berita
+                  </h2>
+              </div>
+          </div>
+      </div>
+      <div class="row testimonial-slider ">
+        @include('pages.main.news.pagination')
+      </div>
+      <div class="row justify-content-center">
+        <a href="/berita" class="mt-5 btn btn-outline-primary col-4">Lihat Semua Berita</a>
+      </div>
+  </div>
+</section>
 <section class="testimonials section">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-title align-center gray-bg">
                     <h2 class="wow fadeInUp" data-wow-delay=".4s"
-                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">What People Say
+                        style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">Komentar
                     </h2>
                 </div>
             </div>
@@ -146,6 +165,7 @@
         </div>
     </div>
 </section>
+
 @include('partials.flash-message-ajax')
 @endsection
 

@@ -226,7 +226,7 @@
     <div class="col-md-12 single-product">
         <div class="row">
             <div class="col-auto">
-                    <img src="{{asset('storage/' . ':foto')}}" alt="">
+                    <img src="${BASE_URL}@getPath(products)${foto}" alt="">
             </div>
             <div class="col-auto pt-2">
                 <h5>${product_name}</h5>
